@@ -25,7 +25,21 @@ public class StudentController extends Controller {
                 return;
             }
             studentsList.addCourse(super.getStudent(), id);
-            studentsList.updateStudent(super.getStudent());
+            studentView.showMessage("course added successfully");
+        } else {
+            studentView.showMessage("no such course exists");
+        }
+    }
+
+    public void removeCourse(int id) {
+        Course course = new CoursesList().findOne(id);
+        if (course != null) {
+            if (!super.getStudent().getCoursesId().contains(id)) {
+                studentView.showMessage("course not found");
+            } else {
+                studentsList.removeCourse(super.getStudent(), id);
+                studentView.showMessage("course removed successfully");
+            }
         } else {
             studentView.showMessage("no such course exists");
         }
