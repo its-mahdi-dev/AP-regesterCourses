@@ -1,5 +1,9 @@
 package Controllers;
 
-public class CollegeController  {
-    
+import Models.Student;
+
+public class CollegeController extends Controller {
+    public CollegeController(Student student) {
+        super(student);
+    }
 }

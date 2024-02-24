@@ -46,7 +46,7 @@ public class CoursesList extends BaseList<Course> {
     public void addCourse(Course course) {
         courses.add(course);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\DataBase\\Course.txt", true))) {
-            writer.write(course.toString() + System.lineSeparator());
+            // writer.write(course.toString() + System.lineSeparator());
         } catch (IOException e) {
             e.printStackTrace();
         }

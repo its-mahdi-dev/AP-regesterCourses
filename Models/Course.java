@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
+import Lists.CollegesList;
 import Lists.CoursesList;
 import Lists.StudentsList;
 
@@ -118,7 +119,8 @@ public class Course extends Model {
 
     @Override
     public String show() {
-        return id + " " + name + " " + units + " " + college_id + " " + course_code + " " + type + " " + group;
+        return id + " " + name + " " + units + " " + getCollege().getName() + " " + course_code + " " + type + " "
+                + group;
     }
 
     public List<Student> getStudents() {
@@ -129,6 +131,11 @@ public class Course extends Model {
                 newStudents.add(myStudent);
         }
         return newStudents;
+    }
+
+    public College getCollege() {
+        College college = new CollegesList().findOne(college_id);
+        return college;
     }
 
 }

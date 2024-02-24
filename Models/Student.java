@@ -63,6 +63,10 @@ public class Student extends Model {
         this.collegeId = collegeId;
     }
 
+    public void addCourse(int course) {
+        courses.add(course);
+    }
+
     @Override
     public String toString() {
         String coursesString = "";
