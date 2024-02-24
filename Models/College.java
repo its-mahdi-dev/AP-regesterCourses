@@ -2,6 +2,8 @@ package Models;
 
 import java.util.List;
 
+import Lists.CollegesList;
+
 public class College extends Model {
     private int id;
     private String name;
@@ -9,12 +11,14 @@ public class College extends Model {
     private List<Integer> students;
 
     public College(int id, String name, List<Integer> courses, List<Integer> students) {
+
         this.id = id;
         this.name = name;
         this.courses = courses;
         this.students = students;
     }
 
+    @Override
     public int getId() {
         return id;
     }

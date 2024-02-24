@@ -2,6 +2,8 @@ package Models;
 
 import java.util.List;
 
+import Lists.StudentsList;
+
 public class Student extends Model {
     private int id;
     private String name;
@@ -9,7 +11,7 @@ public class Student extends Model {
     private int studentId;
     private int collegeId;
 
-    public Student(int id, String name, List<Integer> courses, int studentId, int collegeId) {
+    public Student(int id, String name, int studentId, int collegeId, List<Integer> courses) {
         this.id = id;
         this.name = name;
         this.courses = courses;
@@ -17,6 +19,7 @@ public class Student extends Model {
         this.collegeId = collegeId;
     }
 
+    @Override
     public int getId() {
         return id;
     }
@@ -66,7 +69,7 @@ public class Student extends Model {
                 coursesString += "-";
             }
         }
-        return id + "," + name + "," + studentId + "," + coursesString + "," + collegeId;
+        return id + "," + name + "," + studentId + "," + collegeId + "," + coursesString;
     }
 
     public String show() {

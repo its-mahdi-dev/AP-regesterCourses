@@ -12,10 +12,14 @@ import java.util.Scanner;
 import Models.College;
 import Models.Course;
 
-public class CollegesList {
+public class CollegesList extends BaseList<College> {
     private List<College> colleges = new ArrayList<>();
 
     public CollegesList() {
+        readData();
+    }
+
+    public void readData() {
         try (FileInputStream reader = new FileInputStream(new File("p1\\DataBase\\College.txt"))) {
             Scanner sc = new Scanner(reader);
             while (sc.hasNextLine()) {
@@ -34,12 +38,13 @@ public class CollegesList {
                 colleges.add(new College(Integer.parseInt(parts[0]), parts[1], courses, students));
 
             }
+            super.setItems(colleges);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<College> getCourses() {
+    public List<College> getColleges() {
         return colleges;
     }
 

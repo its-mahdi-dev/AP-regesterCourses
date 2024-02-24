@@ -3,7 +3,9 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course extends Model{
+import Lists.CoursesList;
+
+public class Course extends Model {
 
     private int id;
     private String name;
@@ -26,6 +28,7 @@ public class Course extends Model{
         this.students = students;
     }
 
+    @Override
     public int getId() {
         return id;
     }
@@ -111,11 +114,9 @@ public class Course extends Model{
                 + studentsString;
     }
 
-    @Override 
-    public String show(){
+    @Override
+    public String show() {
         return id + " " + name + " " + units + " " + college_id + " " + course_code + " " + type + " " + group;
     }
-
-
 
 }

@@ -10,10 +10,14 @@ import java.util.List;
 import java.util.Scanner;
 import Models.Student;
 
-public class StudentsList {
+public class StudentsList extends BaseList<Student> {
     private List<Student> students = new ArrayList<>();
 
     public StudentsList() {
+        readData();
+    }
+
+    public void readData() {
         try (FileInputStream reader = new FileInputStream(new File("p1\\DataBase\\Course.txt"))) {
             Scanner sc = new Scanner(reader);
             while (sc.hasNextLine()) {
@@ -27,6 +31,7 @@ public class StudentsList {
                 students.add(new Student(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]),
                         Integer.parseInt(parts[3]), studentsInteger));
             }
+            super.setItems(students);
         } catch (IOException e) {
             e.printStackTrace();
         }
