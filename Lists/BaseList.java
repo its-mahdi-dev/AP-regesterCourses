@@ -16,6 +16,15 @@ public abstract class BaseList<T extends Model> {
         this.items = items;
     }
 
+    public T findOne(int id) {
+        for (T item : items) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public List<T> findById(int id) {
         List<T> newItems = new ArrayList<>();
         for (T item : items) {

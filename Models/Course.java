@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Lists.CoursesList;
+import Lists.StudentsList;
 
 public class Course extends Model {
 
@@ -86,7 +87,7 @@ public class Course extends Model {
         this.group = group;
     }
 
-    public List<Integer> getStudents() {
+    public List<Integer> getStudentsId() {
         return students;
     }
 
@@ -118,6 +119,16 @@ public class Course extends Model {
     @Override
     public String show() {
         return id + " " + name + " " + units + " " + college_id + " " + course_code + " " + type + " " + group;
+    }
+
+    public List<Student> getStudents() {
+        List<Student> newStudents = new ArrayList<>();
+        for (int i = 0; i < students.size(); i++) {
+            Student myStudent = new StudentsList().findOne(students.get(i));
+            if (myStudent != null)
+                newStudents.add(myStudent);
+        }
+        return newStudents;
     }
 
 }

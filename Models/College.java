@@ -1,8 +1,11 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Lists.CollegesList;
+import Lists.CoursesList;
+import Lists.StudentsList;
 
 public class College extends Model {
     private int id;
@@ -28,11 +31,11 @@ public class College extends Model {
         return name;
     }
 
-    public List<Integer> getCourses() {
+    public List<Integer> getCoursesId() {
         return courses;
     }
 
-    public List<Integer> getStudents() {
+    public List<Integer> getStudentsId() {
         return students;
     }
 
@@ -74,6 +77,25 @@ public class College extends Model {
     @Override
     public String show() {
         return id + "- " + name;
+    }
+
+    public List<Course> getCourses() {
+        List<Course> newCourses = new ArrayList<>();
+        for (int i = 0; i < courses.size(); i++) {
+            Course myCourse = new CoursesList().findOne(courses.get(i));
+            if (myCourse != null)
+                newCourses.add(myCourse);
+        }
+        return newCourses;
+    }
+    public List<Student> getStudents() {
+        List<Student> newStudents = new ArrayList<>();
+        for (int i = 0; i < students.size(); i++) {
+            Student myStudent = new StudentsList().findOne(students.get(i));
+            if (myStudent != null)
+                newStudents.add(myStudent);
+        }
+        return newStudents;
     }
 
 }
