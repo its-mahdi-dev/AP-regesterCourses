@@ -7,6 +7,7 @@ public abstract class Model {
 
     public abstract int getId();
 
+    public abstract String getName();
     public abstract String toString();
 
     public abstract String show();

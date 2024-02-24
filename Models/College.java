@@ -23,6 +23,7 @@ public class College extends Model {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }

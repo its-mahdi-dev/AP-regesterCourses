@@ -37,6 +37,7 @@ public class Course extends Model {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
