@@ -67,6 +67,11 @@ public class Student extends Model {
         courses.add(course);
     }
 
+    public void removeCourse(int course) {
+        // int index = course.inde
+        courses.removeIf(num -> num == course);
+    }
+
     @Override
     public String toString() {
         String coursesString = "";

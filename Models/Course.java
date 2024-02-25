@@ -119,8 +119,9 @@ public class Course extends Model {
 
     @Override
     public String show() {
-        return id + " " + name + " " + units + " " + getCollege().getName() + " " + course_code + " " + type + " "
-                + group;
+        String show = String.format("%-6s%-8s%-8s%-8s%-14s%-8s%s\n", id, name, units, getCollege().getName(),
+                course_code, type, group);
+        return show;
     }
 
     public List<Student> getStudents() {

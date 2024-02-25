@@ -76,7 +76,8 @@ public class College extends Model {
 
     @Override
     public String show() {
-        return id + "- " + name;
+        String show = String.format("%-6s%-8s\n", id, name);
+        return show;
     }
 
     public List<Course> getCourses() {
@@ -88,6 +89,7 @@ public class College extends Model {
         }
         return newCourses;
     }
+
     public List<Student> getStudents() {
         List<Student> newStudents = new ArrayList<>();
         for (int i = 0; i < students.size(); i++) {
