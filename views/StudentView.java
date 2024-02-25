@@ -7,8 +7,8 @@ import Models.Course;
 
 public class StudentView {
     public void showCourses(List<Course> courses) {
-        System.out.printf("%-6s%-8s%-8s%-8s%-14s%-8s%s\n", "id", "name", "units", "college", "course_code", "type",
-                "group");
+        System.out.printf("%-6s%-8s%-8s%-8s%-14s%-8s%-8s%s\n", "id", "name", "units", "college", "course_code", "type",
+                "group", "times");
         for (Course course : courses) {
             System.out.println(course.show());
         }
@@ -19,8 +19,8 @@ public class StudentView {
     }
 
     public void showMyCourses(List<Course> courses) {
-        System.out.printf("%-6s%-8s%-8s%-8s%-14s%-8s%s\n", "id", "name", "units", "college", "course_code", "type",
-                "group");
+        System.out.printf("%-6s%-8s%-8s%-8s%-14s%-8s%-8s%s\n", "id", "name", "units", "college", "course_code", "type",
+                "group", "times");
         for (Course course : courses) {
             System.out.println(course.show());
         }

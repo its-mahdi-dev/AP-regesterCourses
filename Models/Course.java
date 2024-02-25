@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Lists.CollegesList;
 import Lists.CoursesList;
@@ -13,13 +14,14 @@ public class Course extends Model {
     private String name;
     private int units;
     private int college_id;
-    public int course_code;
-    public String type;
-    public int group;
-    List<Integer> students;
+    private int course_code;
+    private String type;
+    private int group;
+    private List<Integer> students;
+    private Map<String, Integer[]> times;
 
     public Course(int id, String name, int units, int college_id, int course_code, String type, int group,
-            List<Integer> students) {
+            List<Integer> students, Map<String, Integer[]> times) {
         this.id = id;
         this.name = name;
         this.units = units;
@@ -28,6 +30,7 @@ public class Course extends Model {
         this.type = type;
         this.group = group;
         this.students = students;
+        this.times = times;
     }
 
     @Override
@@ -88,6 +91,14 @@ public class Course extends Model {
         this.group = group;
     }
 
+    public Map<String, Integer[]> getTimes() {
+        return times;
+    }
+
+    public void setTimes(Map<String, Integer[]> times) {
+        this.times = times;
+    }
+
     public List<Integer> getStudentsId() {
         return students;
     }
@@ -119,8 +130,12 @@ public class Course extends Model {
 
     @Override
     public String show() {
-        String show = String.format("%-6s%-8s%-8s%-8s%-14s%-8s%s\n", id, name, units, getCollege().getName(),
-                course_code, type, group);
+        String timesString = "";
+        for (Map.Entry<String, Integer[]> entry : times.entrySet()) {
+            timesString += entry.getKey() + ":" + entry.getValue()[0] + "~" + entry.getValue()[1] + " - ";
+        }
+        String show = String.format("%-6s%-8s%-8s%-8s%-14s%-8s%-8s%s\n", id, name, units, getCollege().getName(),
+                course_code, type, group, timesString);
         return show;
     }
 

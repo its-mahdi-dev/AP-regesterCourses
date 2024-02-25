@@ -47,19 +47,29 @@ public class StudentsList extends BaseList<Student> {
     }
 
     public void addCourse(Student student, int course) {
-        for(Student s : students){
-            if(s.getStudentId() == student.getStudentId()){
+        for (Student s : students) {
+            if (s.getStudentId() == student.getStudentId()) {
                 s.addCourse(course);
             }
+            System.out.println(s.getCoursesId());
         }
+
+        updateStudent(student);
+    }
+
+    public void removeCourse(Student student, int course) {
+        for (Student s : students) {
+            if (s.getStudentId() == student.getStudentId()) {
+                s.removeCourse(course);
+            }
+        }
+        updateStudent(student);
     }
 
     public void updateStudent(Student student) {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\\\DataBase\\\\Student.txt", false))) {
             for (Student s : students) {
-                System.out.println(s.toString());
-                System.out.println("55 "+s.getCoursesId());
                 writer.write(s.toString());
                 writer.newLine();
             }

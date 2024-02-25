@@ -15,6 +15,7 @@ public class Application {
         String StudentId = login();
         Cli cli = new Cli(StudentId);
         Scanner sc = new Scanner(System.in);
+        cli.processCommand("colleges");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             cli.processCommand(line);

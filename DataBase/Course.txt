@@ -1,1 +1,2 @@
-1,math,4,2,12345,public,1,1-2-3-4-5
+1,math,4,2,12345,public,1,1-2-3-4-5,saturday:1~2-sunday:4~5
+2,chem,4,2,4568,public,1,1-2-3-4-5,moday:1~2-sunday:3~6
