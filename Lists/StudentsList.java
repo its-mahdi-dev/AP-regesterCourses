@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -17,24 +18,23 @@ import Models.Student;
 
 public class StudentsList extends BaseList<Student> {
     private List<Student> students = new ArrayList<>();
+    private final String path = "p1\\DataBase\\Student.txt";
 
     public StudentsList() {
+        super("p1\\DataBase\\Student.txt");
         readData();
     }
 
     public void readData() {
-        try (FileInputStream reader = new FileInputStream(new File("p1\\DataBase\\Student.txt"))) {
+        try (FileInputStream reader = new FileInputStream(new File(path))) {
             Scanner sc = new Scanner(reader);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] parts = line.split(",");
-                String[] groups = parts[parts.length - 1].split("-");
-                List<Integer> studentsInteger = new ArrayList<>();
-                for (int i = 0; i < groups.length; i++) {
-                    studentsInteger.add(Integer.parseInt(groups[i]));
-                }
-                students.add(new Student(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]),
-                        Integer.parseInt(parts[3]), studentsInteger));
+                Map<String, String> map = convertToStringMap(line);
+                System.out.println(map);
+                students.add(new Student(Integer.parseInt(map.get("id")), map.get("name"),
+                        Integer.parseInt(map.get("studentId")), Integer.parseInt(map.get("collegeId")),
+                        getIntegers(map.get("courses"))));
             }
             super.setItems(students);
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class StudentsList extends BaseList<Student> {
 
     public void updateStudent(Student student) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\\\DataBase\\\\Student.txt", false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) {
             for (Student s : students) {
                 writer.write(s.toString());
                 writer.newLine();

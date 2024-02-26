@@ -1,12 +1,23 @@
 package Lists;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Models.Model;
+import Models.Student;
 
 public abstract class BaseList<T extends Model> {
     private List<T> items;
+    private String path;
+
+    public BaseList(String path) {
+        this.path = path;
+    }
 
     public List<T> getItems() {
         return items;
@@ -47,5 +58,57 @@ public abstract class BaseList<T extends Model> {
 
     public List<T> getAll() {
         return items;
+    }
+
+    protected static Map<String, String> convertToStringMap(String str) {
+        Map<String, String> map = new HashMap<>();
+        str = str.substring(1, str.length() - 1);
+        if (!str.isEmpty()) {
+            String[] pairs = str.split(",(?=\\s[a-zA-Z])");
+            for (String pair : pairs) {
+                int index = pair.indexOf('=');
+                if (index != -1) {
+                    String key = pair.substring(0, index).trim();
+                    String value = pair.substring(index + 1).trim();
+                    map.put(key, value);
+                }
+            }
+        }
+        return map;
+    }
+
+    protected List<Integer> getIntegers(String line) {
+        List<Integer> list = new ArrayList<>();
+        String[] parts = line.split("-");
+        for (int i = 0; i < parts.length; i++) {
+            list.add(Integer.parseInt(parts[i]));
+        }
+        return list;
+    }
+
+    protected Map<String, Integer[]> getTime(String line) {
+        String[] times = line.split("-");
+        Map<String, Integer[]> time = new HashMap<>();
+        for (String t : times) {
+            String[] newTime = t.split(":");
+            String day = newTime[0];
+            String[] hours = newTime[1].split("~");
+            time.put(
+                    day, new Integer[] { Integer.parseInt(hours[0]), Integer.parseInt(hours[1]) });
+        }
+        return time;
+
+    }
+
+    public void updateList(Student student) {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\\\DataBase\\\\Student.txt", false))) {
+            for (T s : items) {
+                writer.write(s.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

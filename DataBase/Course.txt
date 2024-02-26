@@ -1,2 +1,2 @@
-1,math,4,2,12345,public,1,1-2-3-4-5,saturday:1~2-sunday:4~5
-2,chem,4,2,4568,public,1,1-2-3-4-5,moday:1~2-sunday:3~6
+{id=1, name=math, units=4, college_id=2, course_code=123456, type=public, group=1, students=1-2-3-4-5, times=saturday:1~2-sunday:4~5}
+{id=2, name=chem, units=4, college_id=2, course_code=456, type=public, group=1, students=1, times=monday:1~2-sunday:3~6}

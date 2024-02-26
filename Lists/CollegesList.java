@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import Models.College;
@@ -14,28 +15,21 @@ import Models.Course;
 
 public class CollegesList extends BaseList<College> {
     private List<College> colleges = new ArrayList<>();
+    private final String path = "p1\\DataBase\\College.txt";
 
     public CollegesList() {
+        super("p1\\DataBase\\College.txt");
         readData();
     }
 
     public void readData() {
-        try (FileInputStream reader = new FileInputStream(new File("p1\\DataBase\\College.txt"))) {
+        try (FileInputStream reader = new FileInputStream(new File(path))) {
             Scanner sc = new Scanner(reader);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] parts = line.split(",");
-                String[] groups = parts[parts.length - 1].split("-");
-                String[] groups2 = parts[parts.length - 2].split("-");
-                List<Integer> students = new ArrayList<>();
-                List<Integer> courses = new ArrayList<>();
-                for (int i = 0; i < groups.length; i++) {
-                    students.add(Integer.parseInt(groups[i]));
-                }
-                for (int i = 0; i < groups2.length; i++) {
-                    courses.add(Integer.parseInt(groups2[i]));
-                }
-                colleges.add(new College(Integer.parseInt(parts[0]), parts[1], courses, students));
+                Map<String, String> map = convertToStringMap(line);
+                colleges.add(new College(Integer.parseInt(map.get("id")), map.get("name"),
+                        getIntegers(map.get("courses")), getIntegers(map.get("students"))));
 
             }
             super.setItems(colleges);
@@ -50,7 +44,7 @@ public class CollegesList extends BaseList<College> {
 
     public void addCourse(College college) {
         colleges.add(college);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\DataBase\\College.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
             writer.write(college.toString() + System.lineSeparator());
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,1 +1,1 @@
-1,mahdi,402170121,2,0-1
+{id=1, collegeId=2, name=mahdi, studentId=402170121, courses=0-2}

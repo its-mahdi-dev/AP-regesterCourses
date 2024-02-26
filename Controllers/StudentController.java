@@ -35,9 +35,9 @@ public class StudentController extends Controller {
                     if (days.contains(entry.getKey())) {
                         Integer[] time1 = times.get(entry.getKey());
                         Integer[] time2 = entry.getValue();
-                        System.out.println(time1[0] + " " + time1[1] + " -- " + time2[0] + " " + time2[1]);
                         if ((time1[0] >= time2[0] && time1[0] < time2[1])
-                                || (time1[1] > time2[0] && time1[1] <= time2[1]) || (time1[0] <= time2[0] && time1[1] >= time2[1])) {
+                                || (time1[1] > time2[0] && time1[1] <= time2[1])
+                                || (time1[0] <= time2[0] && time1[1] >= time2[1])) {
                             studentView.showMessage("course conflict");
                             return;
                         }
@@ -45,6 +45,8 @@ public class StudentController extends Controller {
                 }
             }
             studentsList.addCourse(student, id);
+            course.addStudent(student.getId());
+            System.out.println("cccc " + course.getStudents());
             studentView.showMessage("course added successfully");
         } else {
             studentView.showMessage("no such course exists");

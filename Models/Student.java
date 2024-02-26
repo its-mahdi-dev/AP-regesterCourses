@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Lists.CoursesList;
 import Lists.StudentsList;
@@ -81,7 +82,9 @@ public class Student extends Model {
                 coursesString += "-";
             }
         }
-        return id + "," + name + "," + studentId + "," + collegeId + "," + coursesString;
+        Map<String, String> map = Map.of("id", String.valueOf(id), "name", name, "studentId", String.valueOf(studentId),
+                "collegeId", String.valueOf(collegeId), "courses", coursesString);
+        return map.toString();
     }
 
     @Override

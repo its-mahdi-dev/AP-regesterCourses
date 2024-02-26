@@ -1,1 +1,1 @@
-2,maa,1-2,1
+{id=2, name=maa, courses=1-2, students=1}
