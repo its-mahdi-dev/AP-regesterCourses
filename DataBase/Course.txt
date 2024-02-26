@@ -1,2 +1,2 @@
-{id=1, name=math, units=4, college_id=2, course_code=123456, type=public, group=1, students=1-2-3-4-5, times=saturday:1~2-sunday:4~5}
-{id=2, name=chem, units=4, college_id=2, course_code=456, type=public, group=1, students=1, times=monday:1~2-sunday:3~6}
+{exam=27/2/8:8~10, times=sunday:4~5-saturday:1~2-, capacity=20, name=math, teacher=mjj, students=0, group=1, units=4, college_id=2, id=1, type=public, course_code=123456}
+{exam=27/2/8:8~9, times=sunday:3~4-monday:1~2-, capacity=50, name=chem, teacher=hh, students=0-1, group=1, units=4, college_id=2, id=2, type=public, course_code=456}

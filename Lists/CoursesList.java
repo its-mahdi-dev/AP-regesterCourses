@@ -32,7 +32,8 @@ public class CoursesList extends BaseList<Course> {
                 courses.add(new Course(Integer.parseInt(map.get("id")), map.get("name"),
                         Integer.parseInt(map.get("units")), Integer.parseInt(map.get("college_id")),
                         Integer.parseInt(map.get("course_code")), map.get("type"), Integer.parseInt(map.get("group")),
-                        getIntegers(map.get("students")), getTime(map.get("times"))));
+                        map.get("teacher"), Integer.parseInt(map.get("capacity")),
+                        getIntegers(map.get("students")), getTime(map.get("times")), getTime(map.get("exam"))));
             }
             super.setItems(courses);
         } catch (IOException e) {

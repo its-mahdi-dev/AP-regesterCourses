@@ -101,4 +101,15 @@ public class Student extends Model {
         }
         return newCourses;
     }
+
+    public int getUnitsCount() {
+        int count = 0;
+        for (int i = 0; i < courses.size(); i++) {
+            Course myCourse = new CoursesList().findOne(courses.get(i));
+            if (myCourse != null) {
+                count += myCourse.getUnits();
+            }
+        }
+        return count;
+    }
 }

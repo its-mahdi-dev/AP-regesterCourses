@@ -100,9 +100,8 @@ public abstract class BaseList<T extends Model> {
 
     }
 
-    public void updateList(Student student) {
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("p1\\\\DataBase\\\\Student.txt", false))) {
+    public void updateList() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) {
             for (T s : items) {
                 writer.write(s.toString());
                 writer.newLine();
