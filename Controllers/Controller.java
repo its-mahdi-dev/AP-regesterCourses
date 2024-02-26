@@ -4,9 +4,18 @@ import Models.Student;
 
 public class Controller {
     private Student student;
+    private boolean isAdmin;
+
+    public Controller(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     public Controller(Student student) {
         this.student = student;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public Student getStudent() {

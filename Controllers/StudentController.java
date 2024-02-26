@@ -14,6 +14,12 @@ public class StudentController extends Controller {
     StudentsList studentsList;
     StudentView studentView;
 
+    public StudentController() {
+        super(true);
+        studentsList = new StudentsList();
+        studentView = new StudentView();
+    }
+
     public StudentController(Student student) {
         super(student);
         studentsList = new StudentsList();

@@ -5,15 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import Cli.AdminCli;
 import Cli.Cli;
+import Cli.StudentCli;
 
 public class Application {
     Map<String, String> users = new HashMap<>();
-
+    private boolean isAdmin = false;
+    Cli cli;
     public void run() {
         setAllUsers();
         String StudentId = login();
-        Cli cli = new Cli(StudentId);
+        if (isAdmin) {
+            cli = new AdminCli();
+        } else {
+            cli = new StudentCli(StudentId);
+        }
         Scanner sc = new Scanner(System.in);
         cli.processCommand("colleges");
         while (sc.hasNextLine()) {
@@ -36,12 +43,21 @@ public class Application {
 
     public String login() {
         String[] userInfo = loginPage();
+        if (userInfo[0].equals("Admin") && userInfo[1].equals("123456")) {
+            isAdmin = true;
+            System.out.println("Login successful by Admin");
+            return "Admin";
+        }
         while (!users.containsKey(userInfo[0]) ||
                 !userInfo[1].equals(users.get(userInfo[0]))) {
             System.out.println("Login failed");
             userInfo = loginPage();
         }
-        System.out.println("Login successful");
+        if (userInfo[0].equals("Admin")) {
+            isAdmin = true;
+            System.out.println("Login successful by Admin");
+        } else
+            System.out.println("Login successful");
         return userInfo[0];
         // return "402170121";
 
