@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Lists.CollegesList;
 import Lists.CoursesList;
 import Lists.StudentsList;
 
@@ -88,7 +89,9 @@ public class Student extends Model {
 
     @Override
     public String show() {
-        return id + " " + name + " " + studentId + " " + collegeId;
+        String result = String.format("%-10s%-10s%-8s\n", studentId, name,
+                new CollegesList().findOne(collegeId).getName());
+        return result;
     }
 
     public List<Course> getCourses() {

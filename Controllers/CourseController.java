@@ -172,7 +172,7 @@ public class CourseController extends Controller {
             sc.close();
             return;
         }
-        if(!student.getCoursesId().contains(course.getId())){
+        if (!student.getCoursesId().contains(course.getId())) {
             studentView.showMessage("student not found in course");
             sc.close();
             return;
@@ -184,5 +184,15 @@ public class CourseController extends Controller {
         studentView.showMessage("student added successfully");
         sc.close();
 
+    }
+
+    public void getStudents(int id) {
+        Course course = coursesList.findOne(id);
+        if (course == null) {
+            studentView.showMessage("course not found");
+            return;
+        }
+        List<Student> students = course.getStudents();
+        adminView.showStudents(students);
     }
 }

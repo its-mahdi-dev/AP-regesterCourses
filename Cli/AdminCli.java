@@ -54,6 +54,9 @@ public class AdminCli extends Cli {
             case "removeStudent":
                 courseController.removeStudent(Integer.parseInt(parts[1]));
                 break;
+            case "getStudents":
+                courseController.getStudents(Integer.parseInt(parts[1]));
+                break;
             default:
                 System.out.println("Invalid command");
                 break;
