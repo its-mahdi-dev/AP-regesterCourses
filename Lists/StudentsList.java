@@ -42,7 +42,7 @@ public class StudentsList extends BaseList<Student> {
         }
     }
 
-    public List<Student> getStrudents() {
+    public List<Student> getStudents() {
         return students;
     }
 

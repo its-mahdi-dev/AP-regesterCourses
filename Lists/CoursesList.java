@@ -47,10 +47,19 @@ public class CoursesList extends BaseList<Course> {
 
     public void addCourse(Course course) {
         courses.add(course);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
-            // writer.write(course.toString() + System.lineSeparator());
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+
+    public void removeCourse(int id) {
+        courses.removeIf(num -> num.getId() == id);
+    }
+
+    public int findNewId() {
+        int max = 0;
+        for (Course course : courses) {
+            if (course.getId() > max) {
+                max = course.getId();
+            }
         }
+        return max + 1;
     }
 }

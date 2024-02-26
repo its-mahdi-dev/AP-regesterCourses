@@ -69,7 +69,6 @@ public class Student extends Model {
     }
 
     public void removeCourse(int course) {
-        // int index = course.inde
         courses.removeIf(num -> num == course);
     }
 

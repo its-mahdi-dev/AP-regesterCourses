@@ -86,7 +86,7 @@ public abstract class BaseList<T extends Model> {
         return list;
     }
 
-    protected Map<String, Integer[]> getTime(String line) {
+    public Map<String, Integer[]> getTime(String line) {
         String[] times = line.split("-");
         Map<String, Integer[]> time = new HashMap<>();
         for (String t : times) {

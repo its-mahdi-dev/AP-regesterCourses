@@ -103,4 +103,12 @@ public class College extends Model {
         return newStudents;
     }
 
+    public void addCourse(int course) {
+        courses.add(course);
+    }
+
+    public void removeCourse(int course) {
+        courses.removeIf(num -> num == course);
+    }
+
 }

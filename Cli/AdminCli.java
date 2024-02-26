@@ -22,10 +22,12 @@ public class AdminCli extends Cli {
         String[] parts = command.split(" ");
         switch (parts[0]) {
             case "colleges":
+                college_id = 0;
                 collegeController.getColleges();
                 break;
             case "get":
                 collegeController.getCourses(Integer.parseInt(parts[1]));
+                college_id = Integer.parseInt(parts[1]);
                 break;
             case "1":
                 studentController.getCourses();
@@ -34,10 +36,10 @@ public class AdminCli extends Cli {
                 courseController.getCourses();
                 break;
             case "add":
-                studentController.addCourse(Integer.parseInt(parts[1]));
+                courseController.addCourse(college_id);
                 break;
             case "remove":
-                studentController.removeCourse(Integer.parseInt(parts[1]));
+                courseController.removeCourse(Integer.parseInt(parts[1]), college_id);
 
                 break;
 
