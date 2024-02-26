@@ -109,18 +109,23 @@ public class Course extends Model {
     public Map<String, Integer[]> getExam() {
         return exam;
     }
+
     public void setExam(Map<String, Integer[]> exam) {
         this.exam = exam;
     }
+
     public String getTeacher() {
         return teacher;
     }
+
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
+
     public int getCapacity() {
         return capacity;
     }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
@@ -138,7 +143,7 @@ public class Course extends Model {
     }
 
     public void removeStudent(int student) {
-        students.remove(student);
+        students.removeIf(num -> num == student);
     }
 
     @Override
