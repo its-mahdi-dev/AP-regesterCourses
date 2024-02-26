@@ -112,4 +112,17 @@ public class Student extends Model {
         }
         return count;
     }
+
+    public int getPublicationsCount() {
+        int count = 0;
+        for (int i = 0; i < courses.size(); i++) {
+            Course myCourse = new CoursesList().findOne(courses.get(i));
+            if (myCourse != null) {
+                if (myCourse.getType().equals("public")) {
+                    count += myCourse.getUnits();
+                }
+            }
+        }
+        return count;
+    }
 }

@@ -35,15 +35,15 @@ public class Application {
     }
 
     public String login() {
-        // String[] userInfo = loginPage();
-        // while (!users.containsKey(userInfo[0]) ||
-        // !userInfo[1].equals(users.get(userInfo[0]))) {
-        // System.out.println("Login failed");
-        // userInfo = loginPage();
-        // }
+        String[] userInfo = loginPage();
+        while (!users.containsKey(userInfo[0]) ||
+                !userInfo[1].equals(users.get(userInfo[0]))) {
+            System.out.println("Login failed");
+            userInfo = loginPage();
+        }
         System.out.println("Login successful");
-        // return userInfo[0];
-        return "402170121";
+        return userInfo[0];
+        // return "402170121";
 
     }
 

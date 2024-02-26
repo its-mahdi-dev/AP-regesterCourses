@@ -56,6 +56,11 @@ public class StudentController extends Controller {
             if (student.getUnitsCount() + course.getUnits() > course.getCapacity()) {
                 studentView.showMessage("course capacity exceeded");
             }
+            if (course.getType().equals("public")) {
+                if (student.getPublicationsCount() + course.getUnits() > 5) {
+                    studentView.showMessage("course publication capacity exceeded");
+                }
+            }
             studentsList.addCourse(student, id);
             CoursesList coursesList = new CoursesList();
             coursesList.findOne(course.getId()).addStudent(student.getId());
