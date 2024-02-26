@@ -128,7 +128,31 @@ public class CourseController extends Controller {
         int capacity = sc.nextInt();
         course.setCapacity(capacity);
         coursesList.updateList();
+        sc.close();
 
         adminView.showMessage("capacity added successfully");
+    }
+
+    public void addStudent(int id) {
+        Course course = coursesList.findOne(id);
+        if (course == null) {
+            studentView.showMessage("course not found");
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter student id: ");
+        int student_id = sc.nextInt();
+        StudentsList studentsList = new StudentsList();
+        Student student = studentsList.findByStudentId(student_id);
+        if (student == null) {
+            studentView.showMessage("student not found");
+            return;
+        }
+        student.addCourse(id);
+        course.addStudent(student.getId());
+        coursesList.updateList();
+        studentsList.updateList();
+        studentView.showMessage("student added successfully");
+        sc.close();
     }
 }

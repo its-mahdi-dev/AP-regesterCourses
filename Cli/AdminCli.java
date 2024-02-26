@@ -29,9 +29,6 @@ public class AdminCli extends Cli {
                 collegeController.getCourses(Integer.parseInt(parts[1]));
                 college_id = Integer.parseInt(parts[1]);
                 break;
-            case "1":
-                studentController.getCourses();
-                break;
             case "courses":
                 courseController.getCourses();
                 break;
@@ -47,10 +44,15 @@ public class AdminCli extends Cli {
                 break;
             case "remove":
                 courseController.removeCourse(Integer.parseInt(parts[1]), college_id);
-
                 break;
-
+            case "exit":
+                System.exit(0);
+                break;
+            case "addStudent":
+                courseController.addStudent(Integer.parseInt(parts[1]));
+                break;
             default:
+                System.out.println("Invalid command");
                 break;
         }
     }

@@ -50,6 +50,9 @@ public class StudentCli extends Cli {
             case "exit":
                 System.exit(0);
                 break;
+            default:
+                System.out.println("Unknown command");
+                break;
 
         }
 
