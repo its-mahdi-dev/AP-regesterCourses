@@ -26,6 +26,7 @@ public class AdminView {
         System.out.println("- type `0` to get colleges");
         System.out.println("- type `remove <course-id>` to add a course");
         System.out.println("- type `add` to add a course");
+        System.out.println("- type `addCapacity <course-id>` to add capacity of a course");
     }
 
     public void showMessage(String message) {

@@ -29,6 +29,7 @@ public class CoursesList extends BaseList<Course> {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 Map<String, String> map = convertToStringMap(line);
+                System.out.println(map);
                 courses.add(new Course(Integer.parseInt(map.get("id")), map.get("name"),
                         Integer.parseInt(map.get("units")), Integer.parseInt(map.get("college_id")),
                         Integer.parseInt(map.get("course_code")), map.get("type"), Integer.parseInt(map.get("group")),

@@ -38,6 +38,13 @@ public class AdminCli extends Cli {
             case "add":
                 courseController.addCourse(college_id);
                 break;
+            case "addCapacity":
+                courseController.addCapacity(Integer.parseInt(parts[1]), college_id);
+                break;
+            case "0":
+                college_id = 0;
+                collegeController.getColleges();
+                break;
             case "remove":
                 courseController.removeCourse(Integer.parseInt(parts[1]), college_id);
 

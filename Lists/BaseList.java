@@ -78,6 +78,9 @@ public abstract class BaseList<T extends Model> {
     }
 
     protected List<Integer> getIntegers(String line) {
+        if (line == null || line.length() == 0) {
+            return new ArrayList<>();
+        }
         List<Integer> list = new ArrayList<>();
         String[] parts = line.split("-");
         for (int i = 0; i < parts.length; i++) {

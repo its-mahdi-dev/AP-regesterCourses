@@ -109,4 +109,26 @@ public class CourseController extends Controller {
         studentsList.updateList();
         studentView.showMessage("course removed successfully");
     }
+
+    public void addCapacity(int id, int college_id) {
+        Course course = coursesList.findOne(id);
+        CollegesList collegesList = new CollegesList();
+        College college = collegesList.findOne(college_id);
+        if (college == null) {
+            adminView.showMessage("college not found");
+            return;
+        }
+        if (course == null) {
+            adminView.showMessage("course not found");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter new capacity: ");
+        int capacity = sc.nextInt();
+        course.setCapacity(capacity);
+        coursesList.updateList();
+
+        adminView.showMessage("capacity added successfully");
+    }
 }
