@@ -60,7 +60,7 @@ public class CourseController extends Controller {
         college.addCourse(newCourse.getId());
         collegesList.updateList();
         coursesList.updateList();
-        studentView.showMessage(message);
+        adminView.showMessage(message);
     }
 
     public Map<String, String> getCourseInput() {
