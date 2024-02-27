@@ -31,7 +31,6 @@ public class StudentsList extends BaseList<Student> {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 Map<String, String> map = convertToStringMap(line);
-                System.out.println(map);
                 students.add(new Student(Integer.parseInt(map.get("id")), map.get("name"),
                         Integer.parseInt(map.get("studentId")), Integer.parseInt(map.get("collegeId")),
                         getIntegers(map.get("courses"))));
@@ -54,7 +53,7 @@ public class StudentsList extends BaseList<Student> {
             System.out.println(s.getCoursesId());
         }
 
-        updateStudent(student);
+        updateList();
     }
 
     public void removeCourse(Student student, int course) {
@@ -63,19 +62,7 @@ public class StudentsList extends BaseList<Student> {
                 s.removeCourse(course);
             }
         }
-        updateStudent(student);
-    }
-
-    public void updateStudent(Student student) {
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) {
-            for (Student s : students) {
-                writer.write(s.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        updateList();
     }
 
     public Student findByStudentId(int id) {
@@ -85,5 +72,10 @@ public class StudentsList extends BaseList<Student> {
                 return student;
         }
         return null;
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+        updateList();
     }
 }

@@ -31,6 +31,7 @@ public class CourseController extends Controller {
         super(student);
         coursesList = new CoursesList();
         studentView = new StudentView();
+        adminView = new AdminView();
     }
 
     public CoursesList getCoursesList() {

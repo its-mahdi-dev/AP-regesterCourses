@@ -21,6 +21,7 @@ public class CollegeController extends Controller {
         super(student);
         studentView = new StudentView();
         collegesList = new CollegesList();
+        adminView = new AdminView();
     }
 
     public void getColleges() {

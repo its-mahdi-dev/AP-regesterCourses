@@ -1,6 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,24 +11,41 @@ import java.util.Scanner;
 import Cli.AdminCli;
 import Cli.Cli;
 import Cli.StudentCli;
+import Lists.CollegesList;
+import Lists.StudentsList;
+import Models.College;
+import Models.Student;
 
 public class Application {
     Map<String, String> users = new HashMap<>();
     private boolean isAdmin = false;
     Cli cli;
+
     public void run() {
+
         setAllUsers();
-        String StudentId = login();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to the College Management System");
+        System.out.println("1. Login\n2. Register");
+        int type = sc.nextInt();
+        String StudentId = null;
+        if (type == 1) {
+            System.out.println("Login");
+            StudentId = login();
+        } else if (type == 2) {
+            System.out.println("Register");
+            StudentId = register();
+        }
         if (isAdmin) {
             cli = new AdminCli();
         } else {
             cli = new StudentCli(StudentId);
         }
-        Scanner sc = new Scanner(System.in);
         cli.processCommand("colleges");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            cli.processCommand(line);
+            if (line.length() > 0)
+                cli.processCommand(line);
         }
     }
 
@@ -72,5 +92,52 @@ public class Application {
         // if(users.containsKey(username) && users.get(username).equals(password)){
         return new String[] { username, password };
         // }
+    }
+
+    public String register() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your name: ");
+        String name = sc.nextLine();
+        System.out.println("Enter your studentId: ");
+        String studentId = sc.nextLine();
+        while (studentId.length() != 9 || !studentId.matches("[0-9]+")) {
+            System.out.println("Enter your studentId: ");
+            studentId = sc.nextLine();
+        }
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        // colleges
+        CollegesList collegesList = new CollegesList();
+        for (College college : collegesList.getColleges()) {
+            System.out.printf("%-6s%-8s\n", "id", "name");
+            System.out.println(college.show());
+        }
+        System.out.println();
+        System.out.println("Enter your college id: ");
+        int college_id = sc.nextInt();
+        users.put(studentId, password);
+        try {
+            File file = new File("p1\\DataBase\\User.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Scanner scanner = new Scanner(file);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(studentId + "," + password);
+            writer.newLine();
+            writer.flush();
+            writer.close();
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StudentsList studentsList = new StudentsList();
+        Student student = new Student(studentsList.findNewId(), name, Integer.parseInt(studentId), college_id,
+                new ArrayList<>());
+
+        studentsList.addStudent(student);
+        return studentId;
     }
 }

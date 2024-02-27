@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Models.Course;
 import Models.Model;
 import Models.Student;
 
@@ -112,5 +113,15 @@ public abstract class BaseList<T extends Model> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int findNewId() {
+        int max = 0;
+        for (T t : items) {
+            if (t.getId() > max) {
+                max = t.getId();
+            }
+        }
+        return max + 1;
     }
 }
