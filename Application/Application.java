@@ -1,3 +1,4 @@
+package Application;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,9 +32,9 @@ public class Application {
         askForLogin(sc);
 
         if (isAdmin) {
-            cli = new AdminCli();
+            cli = new AdminCli(this);
         } else {
-            cli = new StudentCli(StudentId);
+            cli = new StudentCli(this,StudentId);
         }
         cli.processCommand("colleges");
         while (sc.hasNextLine()) {

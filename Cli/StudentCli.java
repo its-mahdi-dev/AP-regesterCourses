@@ -1,5 +1,6 @@
 package Cli;
 
+import Application.Application;
 import Controllers.CollegeController;
 import Controllers.CourseController;
 import Controllers.StudentController;
@@ -15,8 +16,8 @@ public class StudentCli extends Cli {
     CollegeController collegeController;
     StudentController studentController;
 
-    public StudentCli(String studentId) {
-        System.out.println(studentId);
+    public StudentCli(Application application, String studentId) {
+        super(application);
         this.student = new StudentsList().findByStudentId(Integer.parseInt(studentId));
         courseController = new CourseController(this.student);
         collegeController = new CollegeController(this.student);
@@ -50,6 +51,9 @@ public class StudentCli extends Cli {
                 break;
             case "exit":
                 System.exit(0);
+                break;
+            case "logout":
+                getApplication().logout();
                 break;
             default:
                 System.out.println("Unknown command");

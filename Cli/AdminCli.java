@@ -1,5 +1,6 @@
 package Cli;
 
+import Application.Application;
 import Controllers.CollegeController;
 import Controllers.CourseController;
 import Controllers.StudentController;
@@ -8,12 +9,11 @@ public class AdminCli extends Cli {
     CourseController courseController;
     CollegeController collegeController;
     StudentController studentController;
-    Application application;
     private int college_id;
     private String backState;
 
     public AdminCli(Application application) {
-        this.application = application;
+        super(application);
         courseController = new CourseController();
         collegeController = new CollegeController();
         studentController = new StudentController();
@@ -65,9 +65,12 @@ public class AdminCli extends Cli {
                     collegeController.getCourses(college_id);
                     backState = "logout";
                 } else if (backState.equals("logout")) {
-
+                    getApplication().logout();
                 }
-
+                break;
+            case "logout":
+                getApplication().logout();
+                break;
             default:
                 System.out.println("Invalid command");
                 break;
