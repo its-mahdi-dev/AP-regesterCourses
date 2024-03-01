@@ -51,6 +51,10 @@ public class CourseController extends Controller {
             return;
         }
         Map<String, String> map = getCourseInput();
+        if (map == null) {
+            adminView.showMessage("add course cancled");
+            return;
+        }
         Course newCourse = new Course(coursesList.findNewId(), map.get("name"), Integer.parseInt(map.get("units")),
                 college_id, Integer.parseInt(map.get("code")), map.get("type"), Integer.parseInt(map.get("group")),
                 map.get("teacher"), Integer.parseInt(map.get("capacity")), new ArrayList<>(),
@@ -67,22 +71,58 @@ public class CourseController extends Controller {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter course name: ");
         String name = sc.nextLine();
+        if (name.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course code: ");
         String code = sc.nextLine();
+        if (code.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course units: ");
         String units = sc.nextLine();
+        if (units.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course capacity: ");
         String capacity = sc.nextLine();
+        if (capacity.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course type (exclusive/public): ");
         String type = sc.nextLine();
+        if (type.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course group: ");
         String group = sc.nextLine();
+        if (group.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course teacher: ");
         String teacher = sc.nextLine();
+        if (teacher.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course exam time (27/02/1402:5~7): ");
         String exam = sc.nextLine();
+        if (exam.equals("back")) {
+            sc.close();
+            return null;
+        }
         System.out.println("Enter course class time (sunday:5~7-monday:3~5): ");
         String time = sc.nextLine();
+        if (time.equals("back")) {
+            sc.close();
+            return null;
+        }
 
         Map<String, String> map = Map.of("name", name, "code", code, "units", units, "capacity", capacity, "type", type,
                 "group", group, "teacher", teacher, "exam", exam, "time", time);
@@ -126,8 +166,12 @@ public class CourseController extends Controller {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter new capacity: ");
-        int capacity = sc.nextInt();
-        course.setCapacity(capacity);
+        String capacity = sc.nextLine();
+        if (capacity.equals("back")) {
+            sc.close();
+            return;
+        }
+        course.setCapacity(Integer.parseInt(capacity));
         coursesList.updateList();
         sc.close();
 
@@ -142,9 +186,13 @@ public class CourseController extends Controller {
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter student id: ");
-        int student_id = sc.nextInt();
+        String student_id = sc.nextLine();
+        if (student_id.equals("back")) {
+            sc.close();
+            return;
+        }
         StudentsList studentsList = new StudentsList();
-        Student student = studentsList.findByStudentId(student_id);
+        Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
         if (student == null) {
             studentView.showMessage("student not found");
             sc.close();
@@ -166,9 +214,13 @@ public class CourseController extends Controller {
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter student id: ");
-        int student_id = sc.nextInt();
+        String student_id = sc.nextLine();
+        if (student_id.equals("back")) {
+            sc.close();
+            return;
+        }
         StudentsList studentsList = new StudentsList();
-        Student student = studentsList.findByStudentId(student_id);
+        Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
         if (student == null) {
             studentView.showMessage("student not found");
             sc.close();
