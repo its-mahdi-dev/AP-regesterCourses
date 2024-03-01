@@ -147,6 +147,7 @@ public class CourseController extends Controller {
         Student student = studentsList.findByStudentId(student_id);
         if (student == null) {
             studentView.showMessage("student not found");
+            sc.close();
             return;
         }
         student.addCourse(id);

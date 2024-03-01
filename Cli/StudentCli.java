@@ -16,6 +16,7 @@ public class StudentCli extends Cli {
     StudentController studentController;
 
     public StudentCli(String studentId) {
+        System.out.println(studentId);
         this.student = new StudentsList().findByStudentId(Integer.parseInt(studentId));
         courseController = new CourseController(this.student);
         collegeController = new CollegeController(this.student);

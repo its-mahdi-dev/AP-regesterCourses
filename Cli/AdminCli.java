@@ -8,10 +8,12 @@ public class AdminCli extends Cli {
     CourseController courseController;
     CollegeController collegeController;
     StudentController studentController;
-
+    Application application;
     private int college_id;
+    private String backState;
 
-    public AdminCli() {
+    public AdminCli(Application application) {
+        this.application = application;
         courseController = new CourseController();
         collegeController = new CollegeController();
         studentController = new StudentController();
@@ -55,8 +57,17 @@ public class AdminCli extends Cli {
                 courseController.removeStudent(Integer.parseInt(parts[1]));
                 break;
             case "getStudents":
+                backState = "courses";
                 courseController.getStudents(Integer.parseInt(parts[1]));
                 break;
+            case "back":
+                if (backState.equals("courses")) {
+                    collegeController.getCourses(college_id);
+                    backState = "logout";
+                } else if (backState.equals("logout")) {
+
+                }
+
             default:
                 System.out.println("Invalid command");
                 break;

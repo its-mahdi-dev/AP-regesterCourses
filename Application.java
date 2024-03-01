@@ -20,22 +20,16 @@ public class Application {
     Map<String, String> users = new HashMap<>();
     private boolean isAdmin = false;
     Cli cli;
+    private String StudentId;
+    private int type;
 
     public void run() {
 
         setAllUsers();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to the College Management System");
-        System.out.println("1. Login\n2. Register");
-        int type = sc.nextInt();
-        String StudentId = null;
-        if (type == 1) {
-            System.out.println("Login");
-            StudentId = login();
-        } else if (type == 2) {
-            System.out.println("Register");
-            StudentId = register();
-        }
+        type = 0;
+        askForLogin(sc);
+
         if (isAdmin) {
             cli = new AdminCli();
         } else {
@@ -46,6 +40,21 @@ public class Application {
             String line = sc.nextLine();
             if (line.length() > 0)
                 cli.processCommand(line);
+        }
+    }
+
+    public void askForLogin(Scanner sc) {
+        System.out.println("Welcome to the College Management System");
+        System.out.println("1. Login\n2. Register");
+        type = sc.nextInt();
+        if (type == 1) {
+            System.out.println("Login");
+            login();
+        } else if (type == 2) {
+            System.out.println("Register");
+            register();
+        } else {
+            askForLogin(sc);
         }
     }
 
@@ -61,12 +70,12 @@ public class Application {
         }
     }
 
-    public String login() {
+    public void login() {
         String[] userInfo = loginPage();
         if (userInfo[0].equals("Admin") && userInfo[1].equals("123456")) {
             isAdmin = true;
             System.out.println("Login successful by Admin");
-            return "Admin";
+            StudentId = "Admin";
         }
         while (!users.containsKey(userInfo[0]) ||
                 !userInfo[1].equals(users.get(userInfo[0]))) {
@@ -78,7 +87,7 @@ public class Application {
             System.out.println("Login successful by Admin");
         } else
             System.out.println("Login successful");
-        return userInfo[0];
+        StudentId = userInfo[0];
         // return "402170121";
 
     }
@@ -94,7 +103,7 @@ public class Application {
         // }
     }
 
-    public String register() {
+    public void register() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String name = sc.nextLine();
@@ -138,6 +147,11 @@ public class Application {
                 new ArrayList<>());
 
         studentsList.addStudent(student);
-        return studentId;
+        StudentId = studentId;
+    }
+
+    public void logout() {
+        isAdmin = false;
+        run();
     }
 }
