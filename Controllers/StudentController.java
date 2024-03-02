@@ -73,9 +73,9 @@ public class StudentController extends Controller {
             CoursesList coursesList = new CoursesList();
             coursesList.findOne(course.getId()).addStudent(student.getId());
             coursesList.updateList();
-            studentView.showMessage("course added successfully");
+            studentView.showSuccessMessage("course added successfully");
         } else {
-            studentView.showMessage("no such course exists");
+            studentView.showErrorMessage("no such course exists");
         }
     }
 
@@ -83,17 +83,17 @@ public class StudentController extends Controller {
         Course course = new CoursesList().findOne(id);
         if (course != null) {
             if (!studentsList.findOne(super.getStudent().getId()).getCoursesId().contains(id)) {
-                studentView.showMessage("course not found");
+                studentView.showErrorMessage("course not found");
             } else {
                 studentsList.removeCourse(super.getStudent(), id);
                 CoursesList coursesList = new CoursesList();
                 coursesList.findOne(course.getId()).removeStudent(getStudent().getId());
                 coursesList.updateList();
                 studentsList.updateList();
-                studentView.showMessage("course removed successfully");
+                studentView.showSuccessMessage("course removed successfully");
             }
         } else {
-            studentView.showMessage("no such course exists");
+            studentView.showErrorMessage("no such course exists");
         }
     }
 

@@ -47,7 +47,7 @@ public class CourseController extends Controller {
         CollegesList collegesList = new CollegesList();
         College college = collegesList.findOne(college_id);
         if (college == null) {
-            adminView.showMessage("college not found");
+            adminView.showErrorMessage("college not found");
             return;
         }
         Map<String, String> map = getCourseInput();
@@ -64,7 +64,7 @@ public class CourseController extends Controller {
         college.addCourse(newCourse.getId());
         collegesList.updateList();
         coursesList.updateList();
-        adminView.showMessage(message);
+        adminView.showSuccessMessage(message);
     }
 
     public Map<String, String> getCourseInput() {
@@ -132,7 +132,7 @@ public class CourseController extends Controller {
     public void removeCourse(int id, int college_id) {
         Course course = coursesList.findOne(id);
         if (course == null) {
-            studentView.showMessage("course not found");
+            studentView.showErrorMessage("course not found");
             return;
         }
         StudentsList studentsList = new StudentsList();
@@ -148,7 +148,7 @@ public class CourseController extends Controller {
         collegesList.updateList();
         coursesList.updateList();
         studentsList.updateList();
-        studentView.showMessage("course removed successfully");
+        studentView.showSuccessMessage("course removed successfully");
     }
 
     public void addCapacity(int id, int college_id) {
@@ -156,11 +156,11 @@ public class CourseController extends Controller {
         CollegesList collegesList = new CollegesList();
         College college = collegesList.findOne(college_id);
         if (college == null) {
-            adminView.showMessage("college not found");
+            adminView.showErrorMessage("college not found");
             return;
         }
         if (course == null) {
-            adminView.showMessage("course not found");
+            adminView.showErrorMessage("course not found");
             return;
         }
 
@@ -175,13 +175,13 @@ public class CourseController extends Controller {
         coursesList.updateList();
         sc.close();
 
-        adminView.showMessage("capacity added successfully");
+        adminView.showSuccessMessage("capacity added successfully");
     }
 
     public void addStudent(int id) {
         Course course = coursesList.findOne(id);
         if (course == null) {
-            studentView.showMessage("course not found");
+            studentView.showErrorMessage("course not found");
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -194,7 +194,7 @@ public class CourseController extends Controller {
         StudentsList studentsList = new StudentsList();
         Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
         if (student == null) {
-            studentView.showMessage("student not found");
+            studentView.showErrorMessage("student not found");
             sc.close();
             return;
         }
@@ -202,14 +202,14 @@ public class CourseController extends Controller {
         course.addStudent(student.getId());
         coursesList.updateList();
         studentsList.updateList();
-        studentView.showMessage("student added successfully");
+        studentView.showSuccessMessage("student added successfully");
         sc.close();
     }
 
     public void removeStudent(int id) {
         Course course = coursesList.findOne(id);
         if (course == null) {
-            studentView.showMessage("course not found");
+            studentView.showErrorMessage("course not found");
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -222,12 +222,12 @@ public class CourseController extends Controller {
         StudentsList studentsList = new StudentsList();
         Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
         if (student == null) {
-            studentView.showMessage("student not found");
+            studentView.showErrorMessage("student not found");
             sc.close();
             return;
         }
         if (!student.getCoursesId().contains(course.getId())) {
-            studentView.showMessage("student not found in course");
+            studentView.showErrorMessage("student not found in course");
             sc.close();
             return;
         }
@@ -235,7 +235,7 @@ public class CourseController extends Controller {
         course.removeStudent(student.getId());
         coursesList.updateList();
         studentsList.updateList();
-        studentView.showMessage("student added successfully");
+        studentView.showSuccessMessage("student added successfully");
         sc.close();
 
     }
@@ -243,7 +243,7 @@ public class CourseController extends Controller {
     public void getStudents(int id) {
         Course course = coursesList.findOne(id);
         if (course == null) {
-            studentView.showMessage("course not found");
+            studentView.showErrorMessage("course not found");
             return;
         }
         List<Student> students = course.getStudents();

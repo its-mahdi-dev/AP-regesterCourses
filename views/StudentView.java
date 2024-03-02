@@ -11,12 +11,12 @@ public class StudentView {
                 "capacity", "college",
                 "course_code", "type", "group", "teacher", "students_count", "exam", "timesString");
         for (Course course : courses) {
-            System.out.println(course.show());
+            System.out.println(ColorsView.PURPLE + course.show() + ColorsView.RESET);
         }
         System.out.println();
-        System.out.println("- type `1` to get your courses");
-        System.out.println("- type `0` to back");
-        System.out.println("- type `add <course-id>` to add a course");
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `0` to back" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `add <course-id>` to add a course" + ColorsView.RESET);
     }
 
     public void showMyCourses(List<Course> courses) {
@@ -24,28 +24,42 @@ public class StudentView {
                 "capacity", "college",
                 "course_code", "type", "group", "teacher", "students_count", "exam", "timesString");
         for (Course course : courses) {
-            System.out.println(course.show());
+            System.out.println(ColorsView.PURPLE + course.show() + ColorsView.RESET);
         }
         System.out.println();
-        System.out.println("- type `1` to get your courses");
-        System.out.println("- type `0` to get colleges");
-        System.out.println("- type `remove <course-id>` to remove a course");
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `0` to get colleges" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `remove <course-id>` to remove a course" + ColorsView.RESET);
     }
 
     public void showColleges(List<College> colleges) {
         System.out.printf("%-6s%-8s\n", "id", "name");
         for (College college : colleges) {
-            System.out.println(college.show());
+            System.out.println(ColorsView.PURPLE + college.show() + ColorsView.RESET);
         }
         System.out.println();
-        System.out.println("- type `1` to get your courses");
-        System.out.println("- type `get <college-id>` to see a college courses");
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `get <college-id>` to see a college courses" + ColorsView.RESET);
     }
 
     public void showMessage(String message) {
         System.out.println();
-        System.out.println(message);
-        System.out.println("- type `1` to get your courses");
-        System.out.println("- type 0 to get colleges");
+        System.out.println(ColorsView.YELLOW + message + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type 0 to get colleges" + ColorsView.RESET);
+    }
+
+    public void showErrorMessage(String message) {
+        System.out.println();
+        System.out.println(ColorsView.RED + message + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type 0 to get colleges" + ColorsView.RESET);
+    }
+
+    public void showSuccessMessage(String message) {
+        System.out.println();
+        System.out.println(ColorsView.GREEN + message + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
+        System.out.println(ColorsView.CYAN + "- type 0 to get colleges" + ColorsView.RESET);
     }
 }

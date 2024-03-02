@@ -1,4 +1,5 @@
 package Application;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,25 +17,26 @@ import Lists.CollegesList;
 import Lists.StudentsList;
 import Models.College;
 import Models.Student;
+import views.ColorsView;
 
 public class Application {
     Map<String, String> users = new HashMap<>();
     private boolean isAdmin = false;
     Cli cli;
     private String StudentId;
-    private int type;
+    private String type;
 
     public void run() {
 
         setAllUsers();
         Scanner sc = new Scanner(System.in);
-        type = 0;
+        type = null;
         askForLogin(sc);
 
         if (isAdmin) {
             cli = new AdminCli(this);
         } else {
-            cli = new StudentCli(this,StudentId);
+            cli = new StudentCli(this, StudentId);
         }
         cli.processCommand("colleges");
         while (sc.hasNextLine()) {
@@ -45,13 +47,13 @@ public class Application {
     }
 
     public void askForLogin(Scanner sc) {
-        System.out.println("Welcome to the College Management System");
+        System.out.println(ColorsView.GREEN + "Welcome to the College Management System" + ColorsView.RESET);
         System.out.println("1. Login\n2. Register");
-        type = sc.nextInt();
-        if (type == 1) {
+        type = sc.nextLine();
+        if (type.equals("1")) {
             System.out.println("Login");
             login();
-        } else if (type == 2) {
+        } else if (type.equals("2")) {
             System.out.println("Register");
             register();
         } else {
@@ -73,21 +75,22 @@ public class Application {
 
     public void login() {
         String[] userInfo = loginPage();
-        if (userInfo[0].equals("Admin") && userInfo[1].equals("123456")) {
-            isAdmin = true;
-            System.out.println("Login successful by Admin");
-            StudentId = "Admin";
-        }
+        // if (userInfo[0].equals("Admin") && userInfo[1].equals("123456")) {
+        // isAdmin = true;
+        // System.out.println(ColorsView.GREEN + "Login successful by Admin" +
+        // ColorsView.RESET);
+        // StudentId = "Admin";
+        // }
         while (!users.containsKey(userInfo[0]) ||
                 !userInfo[1].equals(users.get(userInfo[0]))) {
-            System.out.println("Login failed");
+            System.out.println(ColorsView.RED + "Login failed" + ColorsView.RESET);
             userInfo = loginPage();
         }
         if (userInfo[0].equals("Admin")) {
             isAdmin = true;
-            System.out.println("Login successful by Admin");
+            System.out.println(ColorsView.GREEN + "Login successful by Admin" + ColorsView.RESET);
         } else
-            System.out.println("Login successful");
+            System.out.println(ColorsView.GREEN + "Login successful" + ColorsView.RESET);
         StudentId = userInfo[0];
         // return "402170121";
 
@@ -95,9 +98,9 @@ public class Application {
 
     public String[] loginPage() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter username: ");
+        System.out.println(ColorsView.YELLOW + "Enter username: " + ColorsView.RESET);
         String username = sc.nextLine();
-        System.out.println("Enter password: ");
+        System.out.println(ColorsView.YELLOW + "Enter password: " + ColorsView.RESET);
         String password = sc.nextLine();
         // if(users.containsKey(username) && users.get(username).equals(password)){
         return new String[] { username, password };

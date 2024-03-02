@@ -26,14 +26,14 @@ public class CollegeController extends Controller {
 
     public void getColleges() {
         if (isAdmin())
-            studentView.showColleges(collegesList.getColleges());
-        else
             adminView.showColleges(collegesList.getColleges());
+        else
+            studentView.showColleges(collegesList.getColleges());
     }
 
     public void getCourses(int id) {
         if (collegesList.findOne(id) == null) {
-            studentView.showMessage("no such college exists");
+            studentView.showErrorMessage("no such college exists");
             return;
         }
         if (isAdmin()) {
