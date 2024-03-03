@@ -59,14 +59,15 @@ public class AdminCli extends Cli {
             case "exit":
                 System.exit(0);
                 break;
-            case "addStudent":
+            case "addStudents":
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
+                    System.out.println("kkkk " + parts[1]);
                     break;
                 }
                 courseController.addStudent(Integer.parseInt(parts[1]));
                 break;
-            case "removeStudent":
+            case "removeStudents":
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     break;

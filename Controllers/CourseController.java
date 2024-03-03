@@ -52,7 +52,7 @@ public class CourseController extends Controller {
         }
         Map<String, String> map = getCourseInput();
         if (map == null) {
-            adminView.showMessage("add course cancled");
+            AdminView.showMessage("add course cancled");
             return;
         }
         Course newCourse = new Course(coursesList.findNewId(), map.get("name"), Integer.parseInt(map.get("units")),
@@ -72,55 +72,55 @@ public class CourseController extends Controller {
         System.out.println("Enter course name: ");
         String name = sc.nextLine();
         if (name.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course code: ");
         String code = sc.nextLine();
         if (code.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course units: ");
         String units = sc.nextLine();
         if (units.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course capacity: ");
         String capacity = sc.nextLine();
         if (capacity.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course type (exclusive/public): ");
         String type = sc.nextLine();
         if (type.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course group: ");
         String group = sc.nextLine();
         if (group.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course teacher: ");
         String teacher = sc.nextLine();
         if (teacher.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course exam time (27/02/1402:5~7): ");
         String exam = sc.nextLine();
         if (exam.equals("back")) {
-            sc.close();
+
             return null;
         }
         System.out.println("Enter course class time (sunday:5~7-monday:3~5): ");
         String time = sc.nextLine();
         if (time.equals("back")) {
-            sc.close();
+
             return null;
         }
 
@@ -168,12 +168,10 @@ public class CourseController extends Controller {
         System.out.println("Enter new capacity: ");
         String capacity = sc.nextLine();
         if (capacity.equals("back")) {
-            sc.close();
             return;
         }
         course.setCapacity(Integer.parseInt(capacity));
         coursesList.updateList();
-        sc.close();
 
         adminView.showSuccessMessage("capacity added successfully");
     }
@@ -185,25 +183,41 @@ public class CourseController extends Controller {
             return;
         }
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter student id: ");
-        String student_id = sc.nextLine();
-        if (student_id.equals("back")) {
-            sc.close();
+        System.out.println("Enter students id: ");
+        String students = sc.nextLine();
+        if (students.equals("back")) {
+            AdminView.showMessage("back to main menu");
             return;
+        }
+
+        String[] arr;
+        if (students.contains(",")) {
+            arr = students.split(",");
+        } else {
+            arr = new String[] { students };
         }
         StudentsList studentsList = new StudentsList();
-        Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
-        if (student == null) {
-            studentView.showErrorMessage("student not found");
-            sc.close();
-            return;
+        for (String student_id : arr) {
+            if (!isInteger(student_id)) {
+                studentView.showErrorMessage("invalid student id: " + student_id);
+                return;
+            }
+            Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
+            if (student == null) {
+                studentView.showErrorMessage("student " + student_id + " not found");
+                return;
+            }
+            if (student.getCoursesId().contains(course.getId())) {
+                studentView.showErrorMessage("student " + student_id + " already added in course");
+                return;
+            }
+            student.addCourse(id);
+            course.addStudent(student.getId());
         }
-        student.addCourse(id);
-        course.addStudent(student.getId());
+
         coursesList.updateList();
         studentsList.updateList();
         studentView.showSuccessMessage("student added successfully");
-        sc.close();
     }
 
     public void removeStudent(int id) {
@@ -214,29 +228,39 @@ public class CourseController extends Controller {
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter student id: ");
-        String student_id = sc.nextLine();
-        if (student_id.equals("back")) {
-            sc.close();
+        String students = sc.nextLine();
+        if (students.equals("back")) {
             return;
+        }
+
+        String[] arr;
+        if (students.contains(",")) {
+            arr = students.split(",");
+        } else {
+            arr = new String[] { students };
         }
         StudentsList studentsList = new StudentsList();
-        Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
-        if (student == null) {
-            studentView.showErrorMessage("student not found");
-            sc.close();
-            return;
+        for (String student_id : arr) {
+            if (!isInteger(student_id)) {
+                studentView.showErrorMessage("invalid student id: " + student_id);
+                return;
+            }
+            Student student = studentsList.findByStudentId(Integer.parseInt(student_id));
+            if (student == null) {
+                studentView.showErrorMessage("student " + student_id + " not found");
+                return;
+            }
+            if (!student.getCoursesId().contains(course.getId())) {
+                studentView.showErrorMessage("student " + student_id + " not found in course");
+                return;
+            }
+            student.removeCourse(id);
+            course.removeStudent(student.getId());
         }
-        if (!student.getCoursesId().contains(course.getId())) {
-            studentView.showErrorMessage("student not found in course");
-            sc.close();
-            return;
-        }
-        student.removeCourse(id);
-        course.removeStudent(student.getId());
+
         coursesList.updateList();
         studentsList.updateList();
         studentView.showSuccessMessage("student added successfully");
-        sc.close();
 
     }
 
@@ -248,5 +272,14 @@ public class CourseController extends Controller {
         }
         List<Student> students = course.getStudents();
         adminView.showStudents(students);
+    }
+
+    public boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

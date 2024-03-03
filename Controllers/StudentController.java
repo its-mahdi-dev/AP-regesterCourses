@@ -31,7 +31,7 @@ public class StudentController extends Controller {
         Student student = studentsList.findOne(super.getStudent().getId());
         if (course != null) {
             if (student.getCoursesId().contains(id)) {
-                studentView.showMessage("course already exists");
+                StudentView.showMessage("course already exists");
                 return;
             }
             Map<String, Integer[]> times = course.getTimes();
@@ -44,7 +44,7 @@ public class StudentController extends Controller {
                         Integer[] time1 = times.get(entry.getKey());
                         Integer[] time2 = entry.getValue();
                         if (!compareTime(time1, time2)) {
-                            studentView.showMessage("course class time conflict with other courses");
+                            StudentView.showMessage("course class time conflict with other courses");
                             return;
                         }
                     }
@@ -53,19 +53,19 @@ public class StudentController extends Controller {
                     Integer[] time1 = course.getExam().get(examDay);
                     Integer[] time2 = c.getExam().get(examDay);
                     if (!compareTime(time1, time2)) {
-                        studentView.showMessage("course exam conflict with other courses");
+                        StudentView.showMessage("course exam conflict with other courses");
                         return;
                     }
                 }
             }
 
             if (student.getUnitsCount() + course.getUnits() > course.getCapacity()) {
-                studentView.showMessage("course capacity exceeded");
+                StudentView.showMessage("course capacity exceeded");
                 return;
             }
             if (course.getType().equals("public")) {
                 if (student.getPublicationsCount() + course.getUnits() > 5) {
-                    studentView.showMessage("course publication capacity exceeded");
+                    StudentView.showMessage("course publication capacity exceeded");
                     return;
                 }
             }
