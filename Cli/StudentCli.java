@@ -6,6 +6,8 @@ import Controllers.CourseController;
 import Controllers.StudentController;
 import Lists.StudentsList;
 import Models.Student;
+import views.AdminView;
+import views.StudentView;
 
 public class StudentCli extends Cli {
 
@@ -32,6 +34,10 @@ public class StudentCli extends Cli {
                 collegeController.getColleges();
                 break;
             case "get":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 collegeController.getCourses(Integer.parseInt(parts[1]));
                 break;
             case "1":
@@ -41,9 +47,17 @@ public class StudentCli extends Cli {
                 courseController.getCourses();
                 break;
             case "add":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 studentController.addCourse(Integer.parseInt(parts[1]));
                 break;
             case "remove":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 studentController.removeCourse(Integer.parseInt(parts[1]));
                 break;
             case "0":
@@ -56,11 +70,20 @@ public class StudentCli extends Cli {
                 getApplication().logout();
                 break;
             default:
-                System.out.println("Unknown command");
+                StudentView.showMessage("Unknown command");
                 break;
 
         }
 
+    }
+
+    public boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public void setState(String state) {

@@ -39,7 +39,7 @@ public class AdminView {
                 ColorsView.CYAN + "- type `getStudents <course-id>` to see a course srudents" + ColorsView.RESET);
     }
 
-    public void showMessage(String message) {
+    public static void showMessage(String message) {
         System.out.println();
         System.out.println(ColorsView.YELLOW + message + ColorsView.RESET);
         System.out.println(ColorsView.CYAN + "- type 0 to get colleges" + ColorsView.RESET);

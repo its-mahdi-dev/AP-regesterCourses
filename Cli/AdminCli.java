@@ -4,6 +4,7 @@ import Application.Application;
 import Controllers.CollegeController;
 import Controllers.CourseController;
 import Controllers.StudentController;
+import views.AdminView;
 
 public class AdminCli extends Cli {
     CourseController courseController;
@@ -28,6 +29,10 @@ public class AdminCli extends Cli {
                 collegeController.getColleges();
                 break;
             case "get":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 collegeController.getCourses(Integer.parseInt(parts[1]));
                 college_id = Integer.parseInt(parts[1]);
                 break;
@@ -38,6 +43,10 @@ public class AdminCli extends Cli {
                 courseController.addCourse(college_id);
                 break;
             case "addCapacity":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 courseController.addCapacity(Integer.parseInt(parts[1]), college_id);
                 break;
             case "0":
@@ -51,12 +60,24 @@ public class AdminCli extends Cli {
                 System.exit(0);
                 break;
             case "addStudent":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 courseController.addStudent(Integer.parseInt(parts[1]));
                 break;
             case "removeStudent":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 courseController.removeStudent(Integer.parseInt(parts[1]));
                 break;
             case "getStudents":
+                if (!isInteger(parts[1])) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 backState = "courses";
                 courseController.getStudents(Integer.parseInt(parts[1]));
                 break;
@@ -72,8 +93,17 @@ public class AdminCli extends Cli {
                 getApplication().logout();
                 break;
             default:
-                System.out.println("Invalid command");
+                AdminView.showMessage("Invalid command");
                 break;
+        }
+    }
+
+    public boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

@@ -42,7 +42,7 @@ public class StudentView {
         System.out.println(ColorsView.CYAN + "- type `get <college-id>` to see a college courses" + ColorsView.RESET);
     }
 
-    public void showMessage(String message) {
+    public static void showMessage(String message) {
         System.out.println();
         System.out.println(ColorsView.YELLOW + message + ColorsView.RESET);
         System.out.println(ColorsView.CYAN + "- type `1` to get your courses" + ColorsView.RESET);
