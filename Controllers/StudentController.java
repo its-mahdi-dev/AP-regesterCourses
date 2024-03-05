@@ -37,7 +37,6 @@ public class StudentController extends Controller {
             Map<String, Integer[]> times = course.getTimes();
             List<String> days = new ArrayList<>(times.keySet());
             String examDay = course.getExam().keySet().iterator().next();
-            System.out.println("eeee" + examDay);
             for (Course c : student.getCourses()) {
                 for (Map.Entry<String, Integer[]> entry : c.getTimes().entrySet()) {
                     if (days.contains(entry.getKey())) {
@@ -59,7 +58,11 @@ public class StudentController extends Controller {
                 }
             }
 
-            if (student.getUnitsCount() + course.getUnits() > course.getCapacity()) {
+            if (student.getUnitsCount() + course.getUnits() > 20) {
+                StudentView.showMessage("unit capacity exceeded");
+                return;
+            }
+            if (course.getCapacity() == course.getStudents().size()) {
                 StudentView.showMessage("course capacity exceeded");
                 return;
             }

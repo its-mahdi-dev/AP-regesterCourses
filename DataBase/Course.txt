@@ -1,2 +1,3 @@
-{times=sunday:4~5-saturday:1~2-, capacity=10, name=math, teacher=mjj, students=1-2-3, group=1, units=4, college_id=2, id=1, type=public, course_code=123456, exam=27/2/8:8~10}
-{times=sunday:9~10-, capacity=10, name=test1, teacher=mahdi2, students=1, group=3, units=5, college_id=1, id=2, type=public, course_code=456789, exam=28/4/02:8~10}
+{course_code=123456, exam=27/2/8:7~10, times=sunday:4~5-saturday:1~2-, capacity=10, name=math, teacher=bahrami, students=1-2, group=1, units=4, college_id=1, id=1, type=public}
+{course_code=456789, exam=25/4/02:10~12, times=sunday:9~10-, capacity=10, name=physics, teacher=mahdi, students=2, group=3, units=3, college_id=2, id=2, type=public}
+{course_code=896587, exam=28/4/02:8~10, times=wednesday:13~15-, capacity=5, name=AP, teacher=boomari, students=2-3, group=2, units=5, college_id=1, id=3, type=exclusive}

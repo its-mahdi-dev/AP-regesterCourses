@@ -6,7 +6,7 @@ import Controllers.CourseController;
 import Controllers.StudentController;
 import Lists.StudentsList;
 import Models.Student;
-import views.AdminView;
+import views.StudentView;
 import views.StudentView;
 
 public class StudentCli extends Cli {
@@ -34,8 +34,12 @@ public class StudentCli extends Cli {
                 collegeController.getColleges();
                 break;
             case "get":
+                if (parts.length < 2) {
+                    StudentView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
-                    AdminView.showMessage("Invalid input");
+                    StudentView.showMessage("Invalid input");
                     break;
                 }
                 collegeController.getCourses(Integer.parseInt(parts[1]));
@@ -47,15 +51,23 @@ public class StudentCli extends Cli {
                 courseController.getCourses();
                 break;
             case "add":
+                if (parts.length < 2) {
+                    StudentView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
-                    AdminView.showMessage("Invalid input");
+                    StudentView.showMessage("Invalid input");
                     break;
                 }
                 studentController.addCourse(Integer.parseInt(parts[1]));
                 break;
             case "remove":
+                if (parts.length < 2) {
+                    StudentView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
-                    AdminView.showMessage("Invalid input");
+                    StudentView.showMessage("Invalid input");
                     break;
                 }
                 studentController.removeCourse(Integer.parseInt(parts[1]));

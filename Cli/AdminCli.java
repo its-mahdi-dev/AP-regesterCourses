@@ -29,6 +29,10 @@ public class AdminCli extends Cli {
                 collegeController.getColleges();
                 break;
             case "get":
+                if (parts.length < 2) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     break;
@@ -43,6 +47,10 @@ public class AdminCli extends Cli {
                 courseController.addCourse(college_id);
                 break;
             case "addCapacity":
+                if (parts.length < 2) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     break;
@@ -60,6 +68,10 @@ public class AdminCli extends Cli {
                 System.exit(0);
                 break;
             case "addStudents":
+                if (parts.length < 2) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     System.out.println("kkkk " + parts[1]);
@@ -68,6 +80,10 @@ public class AdminCli extends Cli {
                 courseController.addStudent(Integer.parseInt(parts[1]));
                 break;
             case "removeStudents":
+                if (parts.length < 2) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     break;
@@ -75,6 +91,10 @@ public class AdminCli extends Cli {
                 courseController.removeStudent(Integer.parseInt(parts[1]));
                 break;
             case "getStudents":
+                if (parts.length < 2) {
+                    AdminView.showMessage("Invalid input");
+                    break;
+                }
                 if (!isInteger(parts[1])) {
                     AdminView.showMessage("Invalid input");
                     break;
