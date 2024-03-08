@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import Models.Course;
+import Models.General;
+import Models.Specialized;
 
 public class CoursesList extends BaseList<Course> {
     private List<Course> courses = new ArrayList<>();
@@ -29,11 +31,20 @@ public class CoursesList extends BaseList<Course> {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 Map<String, String> map = convertToStringMap(line);
-                courses.add(new Course(Integer.parseInt(map.get("id")), map.get("name"),
-                        Integer.parseInt(map.get("units")), Integer.parseInt(map.get("college_id")),
-                        Integer.parseInt(map.get("course_code")), map.get("type"), Integer.parseInt(map.get("group")),
-                        map.get("teacher"), Integer.parseInt(map.get("capacity")),
-                        getIntegers(map.get("students")), getTime(map.get("times")), getTime(map.get("exam"))));
+                if (map.get("type").equals("general")) {
+                    courses.add(new General(Integer.parseInt(map.get("id")), map.get("name"),
+                            Integer.parseInt(map.get("units")), Integer.parseInt(map.get("college_id")),
+                            Integer.parseInt(map.get("course_code")), Integer.parseInt(map.get("group")),
+                            map.get("teacher"), Integer.parseInt(map.get("capacity")),
+                            getIntegers(map.get("students")), getTime(map.get("times")), getTime(map.get("exam"))));
+                } else {
+                    courses.add(new Specialized(Integer.parseInt(map.get("id")), map.get("name"),
+                            Integer.parseInt(map.get("units")), Integer.parseInt(map.get("college_id")),
+                            Integer.parseInt(map.get("course_code")), Integer.parseInt(map.get("group")),
+                            map.get("teacher"), Integer.parseInt(map.get("capacity")),
+                            getIntegers(map.get("students")), getTime(map.get("times")), getTime(map.get("exam"))));
+                }
+
             }
             super.setItems(courses);
         } catch (IOException e) {

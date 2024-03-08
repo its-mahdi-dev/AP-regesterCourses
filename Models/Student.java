@@ -120,7 +120,7 @@ public class Student extends Model {
         for (int i = 0; i < courses.size(); i++) {
             Course myCourse = new CoursesList().findOne(courses.get(i));
             if (myCourse != null) {
-                if (myCourse.getType().equals("public")) {
+                if (myCourse.getType().equals("general")) {
                     count += myCourse.getUnits();
                 }
             }

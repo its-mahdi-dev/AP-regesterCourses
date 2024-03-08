@@ -3,6 +3,7 @@ package Lists;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,15 +91,15 @@ public abstract class BaseList<T extends Model> {
         return list;
     }
 
-    public Map<String, Integer[]> getTime(String line) {
+    public Map<String, LocalTime[]> getTime(String line) {
         String[] times = line.split("-");
-        Map<String, Integer[]> time = new HashMap<>();
+        Map<String, LocalTime[]> time = new HashMap<>();
         for (String t : times) {
-            String[] newTime = t.split(":");
+            String[] newTime = t.split(">");
             String day = newTime[0];
             String[] hours = newTime[1].split("~");
             time.put(
-                    day, new Integer[] { Integer.parseInt(hours[0]), Integer.parseInt(hours[1]) });
+                    day, new LocalTime[] { LocalTime.parse(hours[0]), LocalTime.parse(hours[1]) });
         }
         return time;
 

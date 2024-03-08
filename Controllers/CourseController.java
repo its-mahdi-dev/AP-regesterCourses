@@ -5,41 +5,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Lists.CollegesList;
 import Lists.CoursesList;
 import Lists.StudentsList;
 import Models.College;
 import Models.Course;
+import Models.General;
+import Models.Specialized;
 import Models.Student;
 import views.AdminView;
 import views.StudentView;
 
 public class CourseController extends Controller {
-    CoursesList coursesList;
     StudentView studentView;
-    AdminView adminView;
+    AdminView adminView = new AdminView();
 
     public CourseController() {
         super(true);
-        coursesList = new CoursesList();
-        studentView = new StudentView();
-        adminView = new AdminView();
     }
 
     public CourseController(Student student) {
         super(student);
-        coursesList = new CoursesList();
-        studentView = new StudentView();
-        adminView = new AdminView();
     }
 
     public CoursesList getCoursesList() {
-        return coursesList;
+        return new CoursesList();
     }
 
     public void getCourses() {
-        studentView.showCourses(coursesList.getCourses());
+        studentView.showCourses(new CoursesList().getCourses());
     }
 
     public void addCourse(int college_id) {
@@ -55,16 +52,37 @@ public class CourseController extends Controller {
             AdminView.showMessage("add course cancled");
             return;
         }
-        Course newCourse = new Course(coursesList.findNewId(), map.get("name"), Integer.parseInt(map.get("units")),
-                college_id, Integer.parseInt(map.get("code")), map.get("type"), Integer.parseInt(map.get("group")),
-                map.get("teacher"), Integer.parseInt(map.get("capacity")), new ArrayList<>(),
-                collegesList.getTime(map.get("time")), collegesList.getTime(map.get("exam")));
-        message = "course succesfully added";
-        coursesList.addCourse(newCourse);
-        college.addCourse(newCourse.getId());
-        collegesList.updateList();
-        coursesList.updateList();
-        adminView.showSuccessMessage(message);
+        try {
+            Course newCourse;
+            if (map.get("type").equals("general")) {
+                newCourse = new General(new CoursesList().findNewId(), map.get("name"),
+                        Integer.parseInt(map.get("units")),
+                        college_id, Integer.parseInt(map.get("code")), Integer.parseInt(map.get("group")),
+                        map.get("teacher"), Integer.parseInt(map.get("capacity")), new ArrayList<>(),
+                        collegesList.getTime(map.get("time")), collegesList.getTime(map.get("exam")));
+            } else {
+                newCourse = new Specialized(new CoursesList().findNewId(), map.get("name"),
+                        Integer.parseInt(map.get("units")),
+                        college_id, Integer.parseInt(map.get("code")), Integer.parseInt(map.get("group")),
+                        map.get("teacher"), Integer.parseInt(map.get("capacity")), new ArrayList<>(),
+                        collegesList.getTime(map.get("time")), collegesList.getTime(map.get("exam")));
+            }
+            message = "course succesfully added";
+            CoursesList coursesList = new CoursesList();
+            System.out.println(newCourse.show());
+            System.out.println(coursesList.getCourses().size());
+            coursesList.addCourse(newCourse);
+            System.out.println(coursesList.getCourses().size());
+            college.addCourse(newCourse.getId());
+            collegesList.updateList();
+            System.out.println(coursesList.getCourses().size());
+            coursesList.updateList();
+            adminView.showSuccessMessage(message);
+        } catch (Exception e) {
+            adminView.showErrorMessage("invalid input");
+
+        }
+
     }
 
     public Map<String, String> getCourseInput() {
@@ -72,39 +90,57 @@ public class CourseController extends Controller {
         System.out.println("Enter course name: ");
         String name = sc.nextLine();
         if (name.equals("back")) {
-
             return null;
         }
         System.out.println("Enter course code: ");
         String code = sc.nextLine();
-        if (code.equals("back")) {
-
-            return null;
+        while (!isInteger(code)) {
+            if (code.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course code: ");
+            code = sc.nextLine();
         }
+
         System.out.println("Enter course units: ");
         String units = sc.nextLine();
-        if (units.equals("back")) {
-
-            return null;
+        while (!isInteger(units)) {
+            if (units.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course units: ");
+            units = sc.nextLine();
         }
+
         System.out.println("Enter course capacity: ");
         String capacity = sc.nextLine();
-        if (capacity.equals("back")) {
-
-            return null;
+        while (!isInteger(capacity)) {
+            if (capacity.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course capacity: ");
+            capacity = sc.nextLine();
         }
-        System.out.println("Enter course type (exclusive/public): ");
-        String type = sc.nextLine();
-        if (type.equals("back")) {
 
-            return null;
+        System.out.println("Enter course type (specialized/general): ");
+        String type = sc.nextLine();
+        while (!type.equals("specialized") && !type.equals("general")) {
+            if (type.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course type (specialized/general): ");
+            type = sc.nextLine();
         }
         System.out.println("Enter course group: ");
         String group = sc.nextLine();
-        if (group.equals("back")) {
-
-            return null;
+        while (!isInteger(group)) {
+            if (group.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course group: ");
+            group = sc.nextLine();
         }
+
         System.out.println("Enter course teacher: ");
         String teacher = sc.nextLine();
         if (teacher.equals("back")) {
@@ -113,12 +149,29 @@ public class CourseController extends Controller {
         }
         System.out.println("Enter course exam time (27/02/1402:5~7): ");
         String exam = sc.nextLine();
-        if (exam.equals("back")) {
-
-            return null;
+        String examRegex = "^\\d{2}/\\d{2}/\\d{4}:\\d{1,2}~\\d{1,2}$";
+        Matcher exMatcher = Pattern.compile(examRegex).matcher(exam);
+        while (!exMatcher.matches()) {
+            if (exam.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course exam time (27/02/1402:5~7): ");
+            exam = sc.nextLine();
+            exMatcher = Pattern.compile(examRegex).matcher(exam);
         }
+
         System.out.println("Enter course class time (sunday:5~7-monday:3~5): ");
         String time = sc.nextLine();
+        String timeRegex = "^(?:[a-zA-Z]+:\\d{1,2}~\\d{1,2}(?:-|$))+";
+        Matcher timeMatcher = Pattern.compile(timeRegex).matcher(time);
+        while (!timeMatcher.matches()) {
+            if (exam.equals("back")) {
+                return null;
+            }
+            System.out.println("Enter course class time (sunday:5~7-monday:3~5): ");
+            time = sc.nextLine();
+            timeMatcher = Pattern.compile(timeRegex).matcher(time);
+        }
         if (time.equals("back")) {
 
             return null;
@@ -130,7 +183,7 @@ public class CourseController extends Controller {
     }
 
     public void removeCourse(int id, int college_id) {
-        Course course = coursesList.findOne(id);
+        Course course = new CoursesList().findOne(id);
         if (course == null) {
             studentView.showErrorMessage("course not found");
             return;
@@ -141,18 +194,18 @@ public class CourseController extends Controller {
                 student.removeCourse(id);
             }
         }
-        coursesList.removeCourse(id);
+        new CoursesList().removeCourse(id);
 
         CollegesList collegesList = new CollegesList();
         collegesList.findOne(college_id).removeCourse(id);
         collegesList.updateList();
-        coursesList.updateList();
+        new CoursesList().updateList();
         studentsList.updateList();
         studentView.showSuccessMessage("course removed successfully");
     }
 
     public void addCapacity(int id, int college_id) {
-        Course course = coursesList.findOne(id);
+        Course course = new CoursesList().findOne(id);
         CollegesList collegesList = new CollegesList();
         College college = collegesList.findOne(college_id);
         if (college == null) {
@@ -167,17 +220,21 @@ public class CourseController extends Controller {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter new capacity: ");
         String capacity = sc.nextLine();
-        if (capacity.equals("back")) {
-            return;
+        while (!isInteger(capacity)) {
+            if (capacity.equals("back")) {
+                return;
+            }
+            capacity = sc.nextLine();
         }
+
         course.setCapacity(Integer.parseInt(capacity));
-        coursesList.updateList();
+        new CoursesList().updateList();
 
         adminView.showSuccessMessage("capacity added successfully");
     }
 
     public void addStudent(int id) {
-        Course course = coursesList.findOne(id);
+        Course course = new CoursesList().findOne(id);
         if (course == null) {
             studentView.showErrorMessage("course not found");
             return;
@@ -215,13 +272,13 @@ public class CourseController extends Controller {
             course.addStudent(student.getId());
         }
 
-        coursesList.updateList();
+        new CoursesList().updateList();
         studentsList.updateList();
         studentView.showSuccessMessage("student added successfully");
     }
 
     public void removeStudent(int id) {
-        Course course = coursesList.findOne(id);
+        Course course = new CoursesList().findOne(id);
         if (course == null) {
             studentView.showErrorMessage("course not found");
             return;
@@ -258,14 +315,14 @@ public class CourseController extends Controller {
             course.removeStudent(student.getId());
         }
 
-        coursesList.updateList();
+        new CoursesList().updateList();
         studentsList.updateList();
         studentView.showSuccessMessage("student added successfully");
 
     }
 
     public void getStudents(int id) {
-        Course course = coursesList.findOne(id);
+        Course course = new CoursesList().findOne(id);
         if (course == null) {
             studentView.showErrorMessage("course not found");
             return;

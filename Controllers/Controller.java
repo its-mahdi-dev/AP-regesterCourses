@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.time.LocalTime;
+
 import Models.Student;
 
 public class Controller {
@@ -26,10 +28,10 @@ public class Controller {
         this.student = student;
     }
 
-    public boolean compareTime(Integer[] time1, Integer[] time2) {
-        if ((time1[0] >= time2[0] && time1[0] < time2[1])
-                || (time1[1] > time2[0] && time1[1] <= time2[1])
-                || (time1[0] <= time2[0] && time1[1] >= time2[1])) {
+    public boolean compareTime(LocalTime[] time1, LocalTime[] time2) {
+        if ((time1[0].compareTo(time2[0]) >= 0 && time1[0].compareTo(time2[1]) < 0)
+                || (time1[1].compareTo(time2[0]) > 0 && time1[1].compareTo(time2[1]) <= 0)
+                || (time1[0].compareTo(time2[0]) <= 0 && time1[1].compareTo(time2[1]) >= 0)) {
             return false;
         }
         return true;

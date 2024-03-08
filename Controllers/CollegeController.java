@@ -26,19 +26,19 @@ public class CollegeController extends Controller {
 
     public void getColleges() {
         if (isAdmin())
-            adminView.showColleges(collegesList.getColleges());
+            adminView.showColleges(new CollegesList().getColleges());
         else
-            studentView.showColleges(collegesList.getColleges());
+            studentView.showColleges(new CollegesList().getColleges());
     }
 
     public void getCourses(int id) {
-        if (collegesList.findOne(id) == null) {
+        if (new CollegesList().findOne(id) == null) {
             studentView.showErrorMessage("no such college exists");
             return;
         }
         if (isAdmin()) {
-            adminView.showCourses(collegesList.findOne(id).getCourses());
+            adminView.showCourses(new CollegesList().findOne(id).getCourses());
         } else
-            studentView.showCourses(collegesList.findOne(id).getCourses());
+            studentView.showCourses(new CollegesList().findOne(id).getCourses());
     }
 }

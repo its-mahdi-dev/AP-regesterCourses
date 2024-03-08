@@ -1,5 +1,6 @@
 package Models;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +20,13 @@ public class Course extends Model {
     private int group;
     private String teacher;
     private int capacity;
-    private Map<String, Integer[]> exam;
+    private Map<String, LocalTime[]> exam;
     private List<Integer> students;
-    private Map<String, Integer[]> times;
+    private Map<String, LocalTime[]> times;
 
     public Course(int id, String name, int units, int college_id, int course_code, String type, int group,
             String teacher, int capacity,
-            List<Integer> students, Map<String, Integer[]> times, Map<String, Integer[]> exam) {
+            List<Integer> students, Map<String, LocalTime[]> times, Map<String, LocalTime[]> exam) {
         this.id = id;
         this.name = name;
         this.units = units;
@@ -98,19 +99,19 @@ public class Course extends Model {
         this.group = group;
     }
 
-    public Map<String, Integer[]> getTimes() {
+    public Map<String, LocalTime[]> getTimes() {
         return times;
     }
 
-    public void setTimes(Map<String, Integer[]> times) {
+    public void setTimes(Map<String, LocalTime[]> times) {
         this.times = times;
     }
 
-    public Map<String, Integer[]> getExam() {
+    public Map<String, LocalTime[]> getExam() {
         return exam;
     }
 
-    public void setExam(Map<String, Integer[]> exam) {
+    public void setExam(Map<String, LocalTime[]> exam) {
         this.exam = exam;
     }
 
@@ -156,12 +157,12 @@ public class Course extends Model {
             }
         }
         String timesString = "";
-        for (Map.Entry<String, Integer[]> entry : times.entrySet()) {
-            timesString += entry.getKey() + ":" + entry.getValue()[0] + "~" + entry.getValue()[1] + "-";
+        for (Map.Entry<String, LocalTime[]> entry : times.entrySet()) {
+            timesString += entry.getKey() + ">" + entry.getValue()[0] + "~" + entry.getValue()[1] + "-";
         }
         String examString = "";
-        for (Map.Entry<String, Integer[]> entry : exam.entrySet()) {
-            examString += entry.getKey() + ":" + entry.getValue()[0] + "~" + entry.getValue()[1];
+        for (Map.Entry<String, LocalTime[]> entry : exam.entrySet()) {
+            examString += entry.getKey() + ">" + entry.getValue()[0] + "~" + entry.getValue()[1];
         }
 
         Map<String, String> map = Map.ofEntries(
@@ -183,11 +184,11 @@ public class Course extends Model {
     @Override
     public String show() {
         String timesString = "";
-        for (Map.Entry<String, Integer[]> entry : times.entrySet()) {
+        for (Map.Entry<String, LocalTime[]> entry : times.entrySet()) {
             timesString += entry.getKey() + ":" + entry.getValue()[0] + "~" + entry.getValue()[1] + " - ";
         }
         String examString = "";
-        for (Map.Entry<String, Integer[]> entry : exam.entrySet()) {
+        for (Map.Entry<String, LocalTime[]> entry : exam.entrySet()) {
             examString += entry.getKey() + ":" + entry.getValue()[0] + "~" + entry.getValue()[1];
         }
         String show = String.format("%-4s%-10s%-8s%-12s%-14s%-10s%-10s%-4s%-10s%-4s%-10s%-10s\n", id, name, units,
