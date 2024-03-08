@@ -1,3 +1,4 @@
-{name=math, courses=1-3, students=1-2, id=1}
-{name=ce, courses=2-5, students=, id=2}
-{name=physics, courses=4, students=3, id=3}
+{name=Math, courses=1-2-3, students=1-2, id=1}
+{name=CE, courses=4-5-6, students=, id=2}
+{name=Physics, courses=7-8-9, students=3, id=3}
+{name=CS, courses=10-11-12, students=4, id=4}

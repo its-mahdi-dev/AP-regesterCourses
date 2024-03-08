@@ -25,10 +25,12 @@ public class CourseController extends Controller {
 
     public CourseController() {
         super(true);
+        studentView = new StudentView();
     }
 
     public CourseController(Student student) {
         super(student);
+        studentView = new StudentView();
     }
 
     public CoursesList getCoursesList() {
@@ -69,13 +71,9 @@ public class CourseController extends Controller {
             }
             message = "course succesfully added";
             CoursesList coursesList = new CoursesList();
-            System.out.println(newCourse.show());
-            System.out.println(coursesList.getCourses().size());
             coursesList.addCourse(newCourse);
-            System.out.println(coursesList.getCourses().size());
             college.addCourse(newCourse.getId());
             collegesList.updateList();
-            System.out.println(coursesList.getCourses().size());
             coursesList.updateList();
             adminView.showSuccessMessage(message);
         } catch (Exception e) {
@@ -254,6 +252,7 @@ public class CourseController extends Controller {
             arr = new String[] { students };
         }
         StudentsList studentsList = new StudentsList();
+        CoursesList coursesList = new CoursesList();
         for (String student_id : arr) {
             if (!isInteger(student_id)) {
                 studentView.showErrorMessage("invalid student id: " + student_id);
@@ -269,12 +268,13 @@ public class CourseController extends Controller {
                 return;
             }
             student.addCourse(id);
-            course.addStudent(student.getId());
+            Course newCourse = coursesList.findOne(id);
+            newCourse.addStudent(student.getId());
         }
 
-        new CoursesList().updateList();
+        coursesList.updateList();
         studentsList.updateList();
-        studentView.showSuccessMessage("student added successfully");
+        adminView.showSuccessMessage("student added successfully");
     }
 
     public void removeStudent(int id) {
@@ -297,6 +297,7 @@ public class CourseController extends Controller {
             arr = new String[] { students };
         }
         StudentsList studentsList = new StudentsList();
+        CoursesList coursesList = new CoursesList();
         for (String student_id : arr) {
             if (!isInteger(student_id)) {
                 studentView.showErrorMessage("invalid student id: " + student_id);
@@ -315,9 +316,9 @@ public class CourseController extends Controller {
             course.removeStudent(student.getId());
         }
 
-        new CoursesList().updateList();
+        coursesList.updateList();
         studentsList.updateList();
-        studentView.showSuccessMessage("student added successfully");
+        adminView.showSuccessMessage("student added successfully");
 
     }
 

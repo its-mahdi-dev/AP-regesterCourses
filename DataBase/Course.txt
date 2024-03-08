@@ -1,5 +1,12 @@
-{group=1, students=1-2, teacher=bahrami, name=math, capacity=10, times=sunday>04:00~05:00-saturday>01:00~02:00-, exam=27/2/8>07:00~10:00, course_code=123456, type=general, id=1, college_id=1, units=4}
-{group=3, students=2, teacher=mahdi, name=physics, capacity=10, times=sunday>09:00~10:00-, exam=25/4/02>01:00~12:00, course_code=456789, type=general, id=2, college_id=2, units=3}
-{group=2, students=2-3-1, teacher=boomari, name=AP, capacity=5, times=wednesday>13:00~15:00-, exam=28/4/02>08:00~10:00, course_code=896587, type=specialized, id=3, college_id=1, units=5}
-{group=1, students=, teacher=dsa, name=das, capacity=32, times=sunday>08:00~09:00-, exam=45/03/1402>06:00~07:00, course_code=21, type=general, id=4, college_id=3, units=31}
-{group=21, students=, teacher=das, name=das, capacity=321, times=wednesday>12:00~14:00-, exam=45/03/1402>06:00~07:00, course_code=213, type=specialized, id=5, college_id=2, units=312}
+{times=sunday>04:00~05:00-saturday>01:00~02:00-, exam=27/2/8>07:00~10:00, course_code=123456, type=general, id=1, college_id=1, units=4, group=1, students=1-2, teacher=Bahrami, name=discrete, capacity=10}
+{times=sunday>09:00~10:00-, exam=25/4/02>01:00~12:00, course_code=789012, type=general, id=2, college_id=1, units=4, group=2, students=1-2, teacher=Khan, name=Math-1, capacity=10}
+{times=sunday>02:00~03:00-saturday>03:00~04:00-, exam=14/6/03>08:00~11:00, course_code=345678, type=specialized, id=3, college_id=1, units=4, group=3, students=2, teacher=Akbari, name=Math-2, capacity=15}
+{times=friday>01:00~02:00-monday>03:00~04:00-, exam=03/8/04>09:00~12:00, course_code=901234, type=general, id=4, college_id=2, units=5, group=1, students=5-2-1, teacher=Zahedi, name=BP, capacity=20}
+{times=wednesday>03:00~04:00-monday>01:00~02:00-, exam=22/10/05>10:00~13:00, course_code=567890, type=specialized, id=5, college_id=2, units=5, group=2, students=1, teacher=Hosseini, name=AP, capacity=12}
+{times=tuesday>04:00~05:00-thursday>02:00~03:00-, exam=18/12/06>11:00~14:00, course_code=234567, type=general, id=6, college_id=2, units=5, group=3, students=, teacher=Mousavi, name=compiler, capacity=18}
+{times=sunday>11:00~12:00-saturday>09:00~10:00-, exam=27/2/08>15:00~18:00, course_code=890123, type=general, id=7, college_id=3, units=4, group=1, students=3, teacher=Rezai, name=Physics-1, capacity=15}
+{times=wednesday>01:00~02:00-monday>02:00~03:00-, exam=28/3/09>16:00~19:00, course_code=456789, type=specialized, id=8, college_id=3, units=4, group=2, students=3, teacher=Farhadi, name=Physics-2, capacity=10}
+{times=tuesday>03:00~04:00-thursday>04:00~05:00-, exam=30/4/10>17:00~20:00, course_code=12345, type=general, id=9, college_id=3, units=4, group=3, students=3, teacher=Mohammadi, name=az Physics1, capacity=20}
+{times=wednesday>01:00~02:00-friday>02:00~03:00-, exam=01/5/11>08:00~11:00, course_code=678901, type=specialized, id=10, college_id=4, units=5, group=1, students=4, teacher=Mehrabian, name=BP, capacity=25}
+{times=saturday>01:00~02:00-thursday>03:00~04:00-, exam=02/6/12>09:00~12:00, course_code=234567, type=general, id=11, college_id=4, units=5, group=2, students=4, teacher=Ahmadi, name=DS, capacity=18}
+{times=sunday>02:00~03:00-friday>04:00~05:00-, exam=03/7/13>10:00~13:00, course_code=890123, type=general, id=12, college_id=4, units=5, group=3, students=4, teacher=Karimi, name=DA, capacity=22}
